@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Interior;
 
 class InteriorsController extends Controller
 {
@@ -18,5 +19,14 @@ class InteriorsController extends Controller
     public function new()
     {
         return view('interior/new');
+    }
+
+    public function detail(Interior $interior)
+    {
+        return view('interior/detail', [
+            'data' => [
+                'interior' => $interior,
+            ]
+        ]);
     }
 }

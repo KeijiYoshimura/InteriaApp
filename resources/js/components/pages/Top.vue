@@ -1,6 +1,6 @@
 <template>
-  <div class="Interior">
-    <Interior v-for="interior in interiors" v-bind:key="interior.id" v-bind:interior="interior" />
+  <div class="top-page">
+    <Interior v-for="interior in interiors" v-bind:key="interior.id" v-bind:interior="interior" v-on:detail="goDetail" />
   </div>
 </template>
 <script>
@@ -26,7 +26,10 @@ export default {
         this.interiors = [];
         console.log(e);
       }
-    }
+    },
+    goDetail(interior) {
+      location.href = `/detail/${interior.id}`;
+    },
   }
 };
 </script>

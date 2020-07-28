@@ -1,5 +1,5 @@
 <template>
-  <div class="interior-container">
+  <div class="interior-container" v-on:click="$emit('detail', interior)">
     <div class="interior-category">
       <span>{{ interior.category }}</span>
     </div>

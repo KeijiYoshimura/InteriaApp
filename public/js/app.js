@@ -2072,16 +2072,83 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _elements_Interior__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../elements/Interior */ "./resources/js/components/elements/Interior.vue");
-//
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+// import Interior from "../elements/Interior";
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Detail",
   components: {
-    Interior: _elements_Interior__WEBPACK_IMPORTED_MODULE_0__["default"]
+    Interior: Interior
   },
   data: function data() {
     return {};
+  },
+  mounted: function mounted() {
+    this.loadInterior();
+  },
+  methods: {
+    loadInterior: function loadInterior() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.prev = 0;
+                _context.next = 3;
+                return getInterior(_this.interiorId);
+
+              case 3:
+                _this.interior = _context.sent;
+                _context.next = 10;
+                break;
+
+              case 6:
+                _context.prev = 6;
+                _context.t0 = _context["catch"](0);
+                _this.interior = [];
+                console.log(_context.t0);
+
+              case 10:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, null, [[0, 6]]);
+      }))();
+    }
+  },
+  computed: {
+    interiorId: function interiorId() {
+      return this.interior.id;
+    },
+    interior: function interior() {
+      return window.data.interior;
+    }
   }
 });
 
@@ -2198,6 +2265,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee, null, [[0, 6]]);
       }))();
+    },
+    goDetail: function goDetail(interior) {
+      location.href = "/detail/".concat(interior.id);
     }
   }
 });
@@ -39228,19 +39298,30 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "interior-container" }, [
-    _c("div", { staticClass: "interior-category" }, [
-      _c("span", [_vm._v(_vm._s(_vm.interior.category))])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "interior-style" }, [
-      _c("span", [_vm._v(_vm._s(_vm.interior.style))])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "interior-detail" }, [
-      _c("span", [_vm._v(_vm._s(_vm.interior.detail))])
-    ])
-  ])
+  return _c(
+    "div",
+    {
+      staticClass: "interior-container",
+      on: {
+        click: function($event) {
+          return _vm.$emit("detail", _vm.interior)
+        }
+      }
+    },
+    [
+      _c("div", { staticClass: "interior-category" }, [
+        _c("span", [_vm._v(_vm._s(_vm.interior.category))])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "interior-style" }, [
+        _c("span", [_vm._v(_vm._s(_vm.interior.style))])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "interior-detail" }, [
+        _c("span", [_vm._v(_vm._s(_vm.interior.detail))])
+      ])
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -39456,7 +39537,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _c("h1", [_vm._v("aaaa")])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -39482,7 +39563,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { attrs: { id: "page-new" } },
+    { attrs: { id: "new-page" } },
     [_c("InteriorForm", { on: { submit: _vm.onSubmit } })],
     1
   )
@@ -39511,9 +39592,13 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "Interior" },
+    { staticClass: "top-page" },
     _vm._l(_vm.interiors, function(interior) {
-      return _c("Interior", { key: interior.id, attrs: { interior: interior } })
+      return _c("Interior", {
+        key: interior.id,
+        attrs: { interior: interior },
+        on: { detail: _vm.goDetail }
+      })
     }),
     1
   )
@@ -52247,12 +52332,13 @@ __webpack_require__.r(__webpack_exports__);
 /*!*****************************************!*\
   !*** ./resources/js/lib/api-service.js ***!
   \*****************************************/
-/*! exports provided: getInteriors, postInterior */
+/*! exports provided: getInteriors, getInterior, postInterior */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getInteriors", function() { return getInteriors; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getInterior", function() { return getInterior; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "postInterior", function() { return postInterior; });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
@@ -52289,22 +52375,15 @@ var getInteriors = /*#__PURE__*/function () {
     return _ref.apply(this, arguments);
   };
 }();
-var postInterior = /*#__PURE__*/function () {
-  var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(interior) {
+var getInterior = /*#__PURE__*/function () {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(interiorId) {
     var response;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
             _context2.next = 2;
-            return fetch("".concat(apiBase, "/interiors"), {
-              method: "POST",
-              body: JSON.stringify(interior),
-              headers: {
-                "Content-Type": "application/json",
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-              }
-            });
+            return fetch("".concat(apiBase, "/interiors/").concat(interiorId));
 
           case 2:
             response = _context2.sent;
@@ -52318,8 +52397,41 @@ var postInterior = /*#__PURE__*/function () {
     }, _callee2);
   }));
 
-  return function postInterior(_x) {
+  return function getInterior(_x) {
     return _ref2.apply(this, arguments);
+  };
+}();
+var postInterior = /*#__PURE__*/function () {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(interior) {
+    var response;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            _context3.next = 2;
+            return fetch("".concat(apiBase, "/interiors"), {
+              method: "POST",
+              body: JSON.stringify(interior),
+              headers: {
+                "Content-Type": "application/json",
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              }
+            });
+
+          case 2:
+            response = _context3.sent;
+            return _context3.abrupt("return", response.json());
+
+          case 4:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, _callee3);
+  }));
+
+  return function postInterior(_x2) {
+    return _ref3.apply(this, arguments);
   };
 }();
 

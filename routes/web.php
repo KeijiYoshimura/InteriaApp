@@ -13,15 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', 'InteriorsController@top');
     Route::get('/new', 'InteriorsController@new');
-    Route::get('/private', 'InteriorsController@private');
-    Route::get('/work', 'InteriorsController@work');
+    Route::get('/detail/{interior}', 'InteriorsController@detail');
 });
 
 Route::prefix('api')->group(function () {

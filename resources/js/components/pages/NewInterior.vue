@@ -1,5 +1,5 @@
 <template>
-  <div id="page-new">
+  <div id="new-page">
     <InteriorForm v-on:submit="onSubmit" />
   </div>
 </template>
