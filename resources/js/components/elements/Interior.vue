@@ -19,7 +19,7 @@ export default {
   }
 };
 </script>
-<style>
+<style scoped>
 .interior-container {
   padding: 0.5em 1em;
   border: groove 5px #000000;

@@ -1,7 +1,5 @@
 <template>
-  <h1>aaaa</h1>
-  <!-- <div class="detail-page">
-      <h1>aaa</h1>
+  <div class="detail-page">
     <div class="interior-container">
       <div class="interior-category">
         <span>{{ interior.category }}</span>
@@ -13,20 +11,15 @@
         <span>{{ interior.detail }}</span>
       </div>
     </div>
-  </div>-->
+  </div>
 </template>
 <script>
-// import Interior from "../elements/Interior";
-
+import { getInterior } from "../../lib/api-service"
 export default {
   name: "Detail",
-  components: { Interior },
-  data: function () {
-    return {};
-  },
-  mounted: function () {
-    this.loadInterior();
-  },
+//   mounted: function () {
+//     this.loadInterior();
+//   },
   methods: {
     async loadInterior() {
       try {

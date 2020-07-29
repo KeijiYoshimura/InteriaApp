@@ -14,11 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/interiors', 'ApiController@index');
-// Route::post('/interiors', 'ApiController@store');
-// Route::delete('/interiors/{interior}', 'ApiController@destroy');
-// Route::patch('/interiors/{interior}/fin', 'ApiController@changeFinish');
-
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
