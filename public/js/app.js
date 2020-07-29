@@ -1966,6 +1966,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Interior",
   props: {
@@ -2040,8 +2043,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "InteriorForm",
+  props: {
+    interior: {
+      type: Object // default: () => {
+      //   return {
+      //     category: "",
+      //     style: "",
+      //     detail: "",
+      //   };
+      // },
+
+    }
+  },
   data: function data() {
     return {
       category: "",
@@ -2057,6 +2081,13 @@ __webpack_require__.r(__webpack_exports__);
         detail: this.detail
       };
       this.$emit("submit", interior);
+    }
+  },
+  directives: {
+    init: {
+      bind: function bind(el, binding, vnode) {
+        vnode.context[binding.arg] = binding.value;
+      }
     }
   }
 });
@@ -2133,6 +2164,52 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee, null, [[0, 6]]);
       }))();
+    }
+  },
+  computed: {
+    interiorId: function interiorId() {
+      return this.interior.id;
+    },
+    interior: function interior() {
+      return window.data.interior;
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/Edit.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pages/Edit.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _elements_InteriorForm__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../elements/InteriorForm */ "./resources/js/components/elements/InteriorForm.vue");
+/* harmony import */ var _lib_api_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../lib/api-service */ "./resources/js/lib/api-service.js");
+//
+//
+//
+//
+//
+//
+
+ //import { component } from "vue/types/umd";
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "Edit",
+  components: {
+    InteriorForm: _elements_InteriorForm__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  methods: {
+    onSubmit: function onSubmit(interior) {
+      Object(_lib_api_service__WEBPACK_IMPORTED_MODULE_1__["updateInterior"])(this.interiorId, interior).then(function () {
+        location.href = "/";
+      })["catch"](function (err) {
+        return console.log(err);
+      });
     }
   },
   computed: {
@@ -2340,6 +2417,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     goDetail: function goDetail(interior) {
       location.href = "/detail/".concat(interior.id);
+    },
+    goEdit: function goEdit(interior) {
+      location.href = "/edit/".concat(interior.id);
     }
   }
 });
@@ -39370,30 +39450,30 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      staticClass: "interior-container",
-      on: {
-        click: function($event) {
-          return _vm.$emit("detail", _vm.interior)
+  return _c("div", { staticClass: "interior-container" }, [
+    _c("div", { staticClass: "interior-category" }, [
+      _c("span", [_vm._v(_vm._s(_vm.interior.category))])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "interior-style" }, [
+      _c("span", [_vm._v(_vm._s(_vm.interior.style))])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "interior-detail" }, [
+      _c("span", [_vm._v(_vm._s(_vm.interior.detail))])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "action" }, [
+      _c("button", {
+        staticClass: "booklist-item-btn-edit",
+        on: {
+          click: function($event) {
+            return _vm.$emit("edit", _vm.interior)
+          }
         }
-      }
-    },
-    [
-      _c("div", { staticClass: "interior-category" }, [
-        _c("span", [_vm._v(_vm._s(_vm.interior.category))])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "interior-style" }, [
-        _c("span", [_vm._v(_vm._s(_vm.interior.style))])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "interior-detail" }, [
-        _c("span", [_vm._v(_vm._s(_vm.interior.detail))])
-      ])
-    ]
-  )
+      })
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -39429,6 +39509,13 @@ var render = function() {
               rawName: "v-model",
               value: _vm.category,
               expression: "category"
+            },
+            {
+              name: "init",
+              rawName: "v-init:category",
+              value: _vm.interior.category,
+              expression: "interior.category",
+              arg: "category"
             }
           ],
           attrs: { type: "text", list: "category_list" },
@@ -39458,6 +39545,13 @@ var render = function() {
               rawName: "v-model",
               value: _vm.style,
               expression: "style"
+            },
+            {
+              name: "init",
+              rawName: "v-init:style",
+              value: _vm.interior.style,
+              expression: "interior.style",
+              arg: "style"
             }
           ],
           attrs: { type: "text", list: "style_list" },
@@ -39487,6 +39581,13 @@ var render = function() {
               rawName: "v-model",
               value: _vm.detail,
               expression: "detail"
+            },
+            {
+              name: "init",
+              rawName: "v-init:detail",
+              value: _vm.interior.detail,
+              expression: "interior.detail",
+              arg: "detail"
             }
           ],
           attrs: { id: "interiorform-detail", type: "text", name: "detail" },
@@ -39632,6 +39733,40 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/Edit.vue?vue&type=template&id=27a28ba0&":
+/*!*************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pages/Edit.vue?vue&type=template&id=27a28ba0& ***!
+  \*************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "edit-page" },
+    [
+      _c("InteriorForm", {
+        attrs: { interior: _vm.interior },
+        on: { submit: _vm.onSubmit }
+      })
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/MyInterior.vue?vue&type=template&id=10d34cdc&":
 /*!*******************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pages/MyInterior.vue?vue&type=template&id=10d34cdc& ***!
@@ -39718,7 +39853,7 @@ var render = function() {
       return _c("Interior", {
         key: interior.id,
         attrs: { interior: interior },
-        on: { detail: _vm.goDetail }
+        on: { detail: _vm.goDetail, edit: _vm.goEdit }
       })
     }),
     1
@@ -52322,17 +52457,20 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-var render, staticRenderFns
-var script = {}
+/* harmony import */ var _Edit_vue_vue_type_template_id_27a28ba0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Edit.vue?vue&type=template&id=27a28ba0& */ "./resources/js/components/pages/Edit.vue?vue&type=template&id=27a28ba0&");
+/* harmony import */ var _Edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Edit.vue?vue&type=script&lang=js& */ "./resources/js/components/pages/Edit.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
 
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__["default"])(
-  script,
-  render,
-  staticRenderFns,
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Edit_vue_vue_type_template_id_27a28ba0___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Edit_vue_vue_type_template_id_27a28ba0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -52340,8 +52478,42 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
   
 )
 
+/* hot reload */
+if (false) { var api; }
 component.options.__file = "resources/js/components/pages/Edit.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/pages/Edit.vue?vue&type=script&lang=js&":
+/*!*************************************************************************!*\
+  !*** ./resources/js/components/pages/Edit.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Edit.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/Edit.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Edit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/pages/Edit.vue?vue&type=template&id=27a28ba0&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/components/pages/Edit.vue?vue&type=template&id=27a28ba0& ***!
+  \*******************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Edit_vue_vue_type_template_id_27a28ba0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Edit.vue?vue&type=template&id=27a28ba0& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/Edit.vue?vue&type=template&id=27a28ba0&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Edit_vue_vue_type_template_id_27a28ba0___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Edit_vue_vue_type_template_id_27a28ba0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
 
 /***/ }),
 
@@ -52556,7 +52728,7 @@ __webpack_require__.r(__webpack_exports__);
 /*!*****************************************!*\
   !*** ./resources/js/lib/api-service.js ***!
   \*****************************************/
-/*! exports provided: getInteriors, getMyInteriors, postInterior */
+/*! exports provided: getInteriors, getMyInteriors, postInterior, updateInterior */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -52564,6 +52736,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getInteriors", function() { return getInteriors; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getMyInteriors", function() { return getMyInteriors; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "postInterior", function() { return postInterior; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateInterior", function() { return updateInterior; });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 
@@ -52660,6 +52833,39 @@ var postInterior = /*#__PURE__*/function () {
 
   return function postInterior(_x) {
     return _ref3.apply(this, arguments);
+  };
+}();
+var updateInterior = /*#__PURE__*/function () {
+  var _ref4 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(interiorId, interior) {
+    var response;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+      while (1) {
+        switch (_context4.prev = _context4.next) {
+          case 0:
+            _context4.next = 2;
+            return fetch("".concat(apiBase, "/interiors/").concat(interiorId), {
+              method: "PUT",
+              body: JSON.stringify(interior),
+              headers: {
+                "Content-Type": "application/json",
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              }
+            });
+
+          case 2:
+            response = _context4.sent;
+            return _context4.abrupt("return", response.json());
+
+          case 4:
+          case "end":
+            return _context4.stop();
+        }
+      }
+    }, _callee4);
+  }));
+
+  return function updateInterior(_x2, _x3) {
+    return _ref4.apply(this, arguments);
   };
 }();
 

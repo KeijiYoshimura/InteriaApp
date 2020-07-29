@@ -28,4 +28,13 @@ class ApiController extends Controller
         ]);
         return response()->json($result);
     }
+
+    public function update(Request $request, interior $interior)
+    {
+        $interior->category = $request->category;
+        $interior->style = $request->style;
+        $interior->detail = $request->detail;
+        $interior->save();
+        return $interior;
+    }
 }

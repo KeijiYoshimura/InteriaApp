@@ -1,5 +1,5 @@
 <template>
-  <div class="interior-container" v-on:click="$emit('detail', interior)">
+  <div class="interior-container" >
     <div class="interior-category">
       <span>{{ interior.category }}</span>
     </div>
@@ -9,14 +9,17 @@
     <div class="interior-detail">
       <span>{{ interior.detail }}</span>
     </div>
+    <div class="action">
+      <button class="booklist-item-btn-edit" v-on:click="$emit('edit', interior)"></button>
+    </div>
   </div>
 </template>
 <script>
 export default {
   name: "Interior",
   props: {
-    interior: Object
-  }
+    interior: Object,
+  },
 };
 </script>
 <style scoped>

@@ -2,12 +2,16 @@
   <form action class="interiorform">
     <tr>
       <th>
-        <!-- <label for="interiorform-category">Category</label> -->
         <label for="interiorform-category">Category</label>
       </th>
       <td>
         <!-- <input v-model="category" id="interiorform-category" type="text" name="category" /> -->
-        <input v-model="category" type="text" list="category_list" />
+        <input
+          v-model="category"
+          type="text"
+          list="category_list"
+          v-init:category="interior.category"
+        />
         <datalist id="category_list">
           <option value="デスク"></option>
           <option value="チェア"></option>
@@ -19,12 +23,11 @@
     </tr>
     <tr>
       <th>
-        <!-- <label for="interiorform-style">Style</label> -->
         <label for="interiorform-style">Style</label>
       </th>
       <td>
         <!-- <input v-model="style" id="interiorform-style" type="text" name="style" /> -->
-        <input v-model="style" type="text" list="style_list" />
+        <input v-model="style" type="text" list="style_list" v-init:style="interior.style" />
         <datalist id="style_list">
           <option value="アメリカン"></option>
           <option value="北欧"></option>
@@ -45,7 +48,13 @@
         <label for="interiorform-detail">Detail</label>
       </th>
       <td>
-        <input v-model="detail" id="interiorform-detail" type="text" name="detail" />
+        <input
+          v-model="detail"
+          id="interiorform-detail"
+          type="text"
+          name="detail"
+          v-init:detail="interior.detail"
+        />
       </td>
     </tr>
     <div class="btn-wraper">
@@ -57,11 +66,23 @@
 <script>
 export default {
   name: "InteriorForm",
-  data: function() {
+  props: {
+    interior: {
+    type: Object,
+    // default: () => {
+    //   return {
+    //     category: "",
+    //     style: "",
+    //     detail: "",
+    //   };
+    // },
+  },
+  },
+  data: function () {
     return {
       category: "",
       style: "",
-      detail: ""
+      detail: "",
     };
   },
   methods: {
@@ -69,11 +90,18 @@ export default {
       const interior = {
         category: this.category,
         style: this.style,
-        detail: this.detail
+        detail: this.detail,
       };
       this.$emit("submit", interior);
-    }
-  }
+    },
+  },
+  directives: {
+    init: {
+      bind(el, binding, vnode) {
+        vnode.context[binding.arg] = binding.value;
+      },
+    },
+  },
 };
 </script>
 <style>
