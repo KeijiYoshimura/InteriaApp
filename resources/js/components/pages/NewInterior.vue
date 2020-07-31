@@ -1,6 +1,6 @@
 <template>
   <div id="new-page">
-    <InteriorForm v-on:submit="onSubmit" />
+    <InteriorForm v-on:submit="onSubmit" v-bind:interior="interior"/>
   </div>
 </template>
 <script>
@@ -16,13 +16,13 @@ export default {
   //   };
   // },
   methods: {
-    onSubmit(interior) {
-      postInterior(interior)
-        .then(() => {
-          location.href = "/";
-        })
-        .catch(err => console.log(err));
-    }
+    // onSubmit(interior) {
+    //   postInterior(interior)
+    //     .then(() => {
+    //       location.href = "/";
+    //     })
+    //     .catch(err => console.log(err));
+    // }
   }
 };
 </script>

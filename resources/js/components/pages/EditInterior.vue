@@ -10,7 +10,7 @@ import { updateInterior } from "../../lib/api-service";
 //import { component } from "vue/types/umd";
 
 export default {
-  name: "Edit",
+  name: "EditInterior",
   components: { InteriorForm },
   methods: {
     onSubmit(interior) {

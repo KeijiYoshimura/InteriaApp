@@ -15,12 +15,12 @@ export const getMyInteriors = async function () {
 //     return response.json();
 // };
 
-export const postInterior = async function (interior) {
+export const postInterior = async function (data) {
     const response = await fetch(`${apiBase}/interiors`, {
         method: "POST",
-        body: JSON.stringify(interior),
+        body: JSON.stringify(data),
         headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "multipart/form-data",
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });

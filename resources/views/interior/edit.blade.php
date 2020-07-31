@@ -2,6 +2,6 @@
 
 @section('content')
 <div id="app">
-    <edit></edit>
+    <edit-interior></edit-interior>
 </div>
 @endsection

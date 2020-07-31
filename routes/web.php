@@ -26,6 +26,15 @@ Route::prefix('api')->group(function () {
     // Route::get('/interiors/{interior}', 'ApiController@show');
     Route::get('/interiors/mine', 'ApiController@mine');
     Route::post('/interiors', 'ApiController@store');
+
+    // Route::post('/interiors', function () {
+    //     $image_name = request()->image->getClientOriginalName();
+    //     request()->image->storeAs('public/', $image_name);
+    // });
+
+    // Route::post('interiors', function () {
+    //     dd(request()->all());
+    // });
     Route::put('/interiors/{interior}', 'ApiController@update');
     Route::delete('/interiors/{interior}', 'ApiController@destroy');
     Route::patch('/interiors/{interior}/fin', 'ApiController@changeFinish');

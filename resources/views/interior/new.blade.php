@@ -2,6 +2,6 @@
 
 @section('content')
 <div id="app">
-    <new-interior></new-interior>
+    <interior-form></interior-form>
 </div>
 @endsection

@@ -16,10 +16,11 @@ class CreateInteriorsTable extends Migration
         Schema::create('interiors', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id')->unsigned()->index();
-            // $table->text('image');
+            $table->text('image');
             $table->text('category');
             $table->text('style');
             $table->text('detail');
+            $table->text('description');
             // $table->integer('category_id')->unsigned()->index();
             // $table->integer('style_id')->unsigned()->index();
             // $table->integer('detail_id')->unsigned()->index();
