@@ -10,10 +10,10 @@ export const getMyInteriors = async function () {
     return response.json();
 };
 
-// export const getInterior = async function(interiorId) {
-//     const response = await fetch(`${apiBase}/interiors/${interiorId}`);
-//     return response.json();
-// };
+export const getInterior = async function(interiorId) {
+    const response = await fetch(`${apiBase}/interiors/${interiorId}`);
+    return response.json();
+};
 
 export const postInterior = async function (data) {
     const response = await fetch(`${apiBase}/interiors`, {
