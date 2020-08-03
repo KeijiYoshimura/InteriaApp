@@ -32,10 +32,11 @@ class ApiController extends Controller
 
     public function store(Request $request)
     {
-        $image_name = $request->image->getClientOriginalName();
+        //$image_name = $request->image->getClientOriginalName();
+        //$image = storeAs('public', $request->image);
 
         $result = $request->user()->interiors()->create([
-            'image' => $request->image->storeAs('public', $image_name),
+            'image' => $request->image->storeAs('public', $request->image),
             'category' => $request->category,
             'style' => $request->style,
             'detail' => $request->detail,

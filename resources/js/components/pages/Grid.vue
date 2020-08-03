@@ -1,46 +1,33 @@
 <template>
-  <!-- <v-app>
-    <div class="top-page">
-      <Interior
-        v-for="interior in interiors"
-        v-bind:key="interior.id"
-        v-bind:interior="interior"
-        v-on:detail="goDetail"
-        v-on:edit="goEdit"
-      />
-    </div>
-  </v-app>-->
+  <!-- <div class="top-page">
+    <Interior v-for="interior in interiors" v-bind:key="interior.id" v-bind:interior="interior" v-on:detail="goDetail" v-on:edit="goEdit" />
+  </div>-->
   <v-app>
     <v-row>
-      <v-col cols="12" sm="10" offset-sm="1">
+      <v-col cols="12" sm="6" offset-sm="3">
         <v-card>
           <v-container fluid>
             <v-row>
               <v-col
                 v-for="interior in interiors"
-                v-bind:key="interior.id"
+                :key="interior.id"
                 class="d-flex child-flex"
                 cols="3"
+                v-on:click="goDetail"
               >
                 <v-card flat tile class="d-flex">
                   <v-img
                     :src="interior.image | replace('public','storage')"
+                    :lazy-src="`https://picsum.photos/10/6?image=${interior * 5 + 10}`"
                     aspect-ratio="1"
                     class="grey lighten-2"
                   >
-                    <template v-slot:aplaceholder>
+                    <template v-slot:placeholder>
                       <v-row class="fill-height ma-0" align="center" justify="center">
                         <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
                       </v-row>
                     </template>
                   </v-img>
-                  <!-- <Interior
-                    v-for="interior in interiors"
-                    v-bind:key="interior.id"
-                    v-bind:interior="interior"
-                    v-on:detail="goDetail"
-                    v-on:edit="goEdit"
-                  />-->
                 </v-card>
               </v-col>
             </v-row>
