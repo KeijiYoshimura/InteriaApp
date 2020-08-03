@@ -159,8 +159,8 @@ export default {
     },
     clear() {
       this.image = "";
-      this.category = "";
-      this.style = "";
+      this.SelectCategory = "";
+      this.SelectStyle = "";
       this.detail = "";
       this.description = "";
     },
