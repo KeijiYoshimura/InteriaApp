@@ -1,7 +1,7 @@
 <template>
   <v-app>
-    <!-- <input v-on:change="fileSelected" type="file" name="image" />
-          <tr>
+    <!-- <input v-on:change="fileSelected" type="file" name="image" /> -->
+    <!-- <tr>
             <th>
               <label for="interiorform-category">Category</label>
             </th>
@@ -73,18 +73,49 @@
             </td>
     </tr>-->
     <v-container>
-      <v-icon>mdi-cog</v-icon>
-      <v-file-input label="File input" v-on:change="fileSelected" outlined dense></v-file-input>
+      <v-img :src="imageData" v-if="imageData" />
+      <v-file-input
+        v-model="image"
+        label="Select File"
+        v-on:change="fileSelected"
+        outlined
+        dense
+        name="image"
+      ></v-file-input>
       <v-combobox
         v-model="SelectCategory"
         :items="categories"
+        v-init:SelectCategory="interior.category"
         label="Select Category"
         outlined
         dense
+        clearable
       ></v-combobox>
-      <v-combobox v-model="SelectStyle" :items="styles" label="Select Style" outlined dense></v-combobox>
-      <v-text-field v-model="detail" label="Detail" outlined dense></v-text-field>
-      <v-textarea v-model="description" solo name="input-7-4" label="Description"></v-textarea>
+      <v-combobox
+        v-model="SelectStyle"
+        :items="styles"
+        v-init:SelectStyle="interior.style"
+        label="Select Style"
+        outlined
+        dense
+        clearable
+      ></v-combobox>
+      <v-text-field
+        v-model="detail"
+        v-init:detail="interior.detail"
+        label="Detail"
+        outlined
+        dense
+        clearable
+      ></v-text-field>
+      <v-textarea
+        v-model="description"
+        v-init:description="interior.description"
+        label="Description"
+        outlined
+        clearable
+        name="input-7-4"
+      ></v-textarea>
       <v-btn color="primary" v-on:click="onSubmit">Submit</v-btn>
       <v-btn color="error" v-on:click="clear">Reset</v-btn>
       <!-- <div class="btn-wraper">
@@ -102,13 +133,12 @@ export default {
   props: {
     interior: {
       type: Object,
-
       default: () => {
         return {
-          image: "",
+          image: null,
+          imageData: "",
           SelectCategory: null,
           SelectStyle: null,
-          styles: ["アメリカン", "北欧"],
           detail: "",
           description: "",
         };
@@ -117,7 +147,8 @@ export default {
   },
   data: function () {
     return {
-      image: "",
+      image: null,
+      imageData: "",
       SelectCategory: "",
       categories: ["デスク", "チェア", "ベッド", "マットレス", "ソファ"],
       SelectStyle: "",
@@ -164,9 +195,14 @@ export default {
       this.detail = "";
       this.description = "";
     },
-    fileSelected(event) {
-      //console.log(event);
-      this.image = event.target.files[0];
+    fileSelected(e) {
+      //this.image = event.target.files[0];
+      const file = e;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.imageData = e.target.result;
+      };
+      reader.readAsDataURL(file);
     },
     // adjustHeight() {
     //   const textarea = this.$refs.adjust_textarea;

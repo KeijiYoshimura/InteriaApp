@@ -2,7 +2,7 @@
   <div class="detail-page">
     <div class="interior-container">
       <div class="interior-image">
-        <img :src="interior.image | replace('public','storage')" />
+        <img :src="interior.image | replace('public','/storage')" />
       </div>
       <div class="interior-category">
         <span>{{ interior.category }}</span>
@@ -43,7 +43,7 @@ export default {
   },
   filters: {
     replace: function (str) {
-      return str.replace("public", "storage");
+      return str.replace("public", "/storage");
     },
   },
 };

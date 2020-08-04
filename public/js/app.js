@@ -2225,6 +2225,37 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "InteriorForm",
@@ -2233,10 +2264,10 @@ __webpack_require__.r(__webpack_exports__);
       type: Object,
       "default": function _default() {
         return {
-          image: "",
+          image: null,
+          imageData: "",
           SelectCategory: null,
           SelectStyle: null,
-          styles: ["アメリカン", "北欧"],
           detail: "",
           description: ""
         };
@@ -2245,7 +2276,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      image: "",
+      image: null,
+      imageData: "",
       SelectCategory: "",
       categories: ["デスク", "チェア", "ベッド", "マットレス", "ソファ"],
       SelectStyle: "",
@@ -2286,9 +2318,18 @@ __webpack_require__.r(__webpack_exports__);
       this.detail = "";
       this.description = "";
     },
-    fileSelected: function fileSelected(event) {
-      //console.log(event);
-      this.image = event.target.files[0];
+    fileSelected: function fileSelected(e) {
+      var _this = this;
+
+      //this.image = event.target.files[0];
+      var file = e;
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        _this.imageData = e.target.result;
+      };
+
+      reader.readAsDataURL(file);
     } // adjustHeight() {
     //   const textarea = this.$refs.adjust_textarea;
     //   const resetHeight = new Promise(function (resolve) {
@@ -2396,7 +2437,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   filters: {
     replace: function replace(str) {
-      return str.replace("public", "storage");
+      return str.replace("public", "/storage");
     }
   }
 });
@@ -2760,6 +2801,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2807,8 +2849,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee, null, [[0, 6]]);
       }))();
     },
-    goDetail: function goDetail(interior) {
-      location.href = "/detail/".concat(interior.id);
+    goDetail: function goDetail(interiorId) {
+      location.href = "/detail/".concat(interiorId);
     },
     goEdit: function goEdit(interior) {
       location.href = "/edit/".concat(interior.id);
@@ -39992,19 +40034,43 @@ var render = function() {
       _c(
         "v-container",
         [
-          _c("v-icon", [_vm._v("mdi-cog")]),
+          _vm.imageData
+            ? _c("v-img", { attrs: { src: _vm.imageData } })
+            : _vm._e(),
           _vm._v(" "),
           _c("v-file-input", {
-            attrs: { label: "File input", outlined: "", dense: "" },
-            on: { change: _vm.fileSelected }
+            attrs: {
+              label: "Select File",
+              outlined: "",
+              dense: "",
+              name: "image"
+            },
+            on: { change: _vm.fileSelected },
+            model: {
+              value: _vm.image,
+              callback: function($$v) {
+                _vm.image = $$v
+              },
+              expression: "image"
+            }
           }),
           _vm._v(" "),
           _c("v-combobox", {
+            directives: [
+              {
+                name: "init",
+                rawName: "v-init:SelectCategory",
+                value: _vm.interior.category,
+                expression: "interior.category",
+                arg: "SelectCategory"
+              }
+            ],
             attrs: {
               items: _vm.categories,
               label: "Select Category",
               outlined: "",
-              dense: ""
+              dense: "",
+              clearable: ""
             },
             model: {
               value: _vm.SelectCategory,
@@ -40016,11 +40082,21 @@ var render = function() {
           }),
           _vm._v(" "),
           _c("v-combobox", {
+            directives: [
+              {
+                name: "init",
+                rawName: "v-init:SelectStyle",
+                value: _vm.interior.style,
+                expression: "interior.style",
+                arg: "SelectStyle"
+              }
+            ],
             attrs: {
               items: _vm.styles,
               label: "Select Style",
               outlined: "",
-              dense: ""
+              dense: "",
+              clearable: ""
             },
             model: {
               value: _vm.SelectStyle,
@@ -40032,7 +40108,16 @@ var render = function() {
           }),
           _vm._v(" "),
           _c("v-text-field", {
-            attrs: { label: "Detail", outlined: "", dense: "" },
+            directives: [
+              {
+                name: "init",
+                rawName: "v-init:detail",
+                value: _vm.interior.detail,
+                expression: "interior.detail",
+                arg: "detail"
+              }
+            ],
+            attrs: { label: "Detail", outlined: "", dense: "", clearable: "" },
             model: {
               value: _vm.detail,
               callback: function($$v) {
@@ -40043,7 +40128,21 @@ var render = function() {
           }),
           _vm._v(" "),
           _c("v-textarea", {
-            attrs: { solo: "", name: "input-7-4", label: "Description" },
+            directives: [
+              {
+                name: "init",
+                rawName: "v-init:description",
+                value: _vm.interior.description,
+                expression: "interior.description",
+                arg: "description"
+              }
+            ],
+            attrs: {
+              label: "Description",
+              outlined: "",
+              clearable: "",
+              name: "input-7-4"
+            },
             model: {
               value: _vm.description,
               callback: function($$v) {
@@ -40096,7 +40195,7 @@ var render = function() {
       _c("div", { staticClass: "interior-image" }, [
         _c("img", {
           attrs: {
-            src: _vm._f("replace")(_vm.interior.image, "public", "storage")
+            src: _vm._f("replace")(_vm.interior.image, "public", "/storage")
           }
         })
       ]),
@@ -40400,7 +40499,7 @@ var render = function() {
                             {
                               key: interior.id,
                               staticClass: "d-flex child-flex",
-                              attrs: { cols: "3" }
+                              attrs: { cols: "4" }
                             },
                             [
                               _c(
@@ -40419,6 +40518,11 @@ var render = function() {
                                         "storage"
                                       ),
                                       "aspect-ratio": "1"
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.goDetail(interior.id)
+                                      }
                                     },
                                     scopedSlots: _vm._u(
                                       [

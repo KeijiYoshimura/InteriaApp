@@ -20,13 +20,14 @@
                 v-for="interior in interiors"
                 v-bind:key="interior.id"
                 class="d-flex child-flex"
-                cols="3"
+                cols="4"
               >
                 <v-card flat tile class="d-flex">
                   <v-img
                     :src="interior.image | replace('public','storage')"
                     aspect-ratio="1"
                     class="grey lighten-2"
+                    v-on:click="goDetail(interior.id)"
                   >
                     <template v-slot:aplaceholder>
                       <v-row class="fill-height ma-0" align="center" justify="center">
@@ -74,8 +75,8 @@ export default {
         console.log(e);
       }
     },
-    goDetail(interior) {
-      location.href = `/detail/${interior.id}`;
+    goDetail(interiorId) {
+      location.href = `/detail/${interiorId}`;
     },
     goEdit(interior) {
       location.href = `/edit/${interior.id}`;
