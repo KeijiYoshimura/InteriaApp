@@ -10,7 +10,11 @@
     "watch-poll": "npm run watch -- --watch-poll"
   },
   "dependencies": {
+    "laravel-echo": "^1.8.1",
     "material-design-icons-iconfont": "^5.0.1",
+    "moment": "^2.27.0",
+    "pusher-js": "^7.0.0",
+    "vue-moment": "^4.1.0",
     "vuetify": "^2.3.7"
   },
   "devDependencies": {

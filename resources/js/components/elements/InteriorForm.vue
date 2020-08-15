@@ -73,55 +73,62 @@
             </td>
     </tr>-->
     <v-container>
-      <v-img :src="imageData" v-if="imageData" />
-      <v-file-input
-        v-model="image"
-        label="Select File"
-        v-on:change="fileSelected"
-        outlined
-        dense
-        name="image"
-      ></v-file-input>
-      <v-combobox
-        v-model="SelectCategory"
-        :items="categories"
-        v-init:SelectCategory="interior.category"
-        label="Select Category"
-        outlined
-        dense
-        clearable
-      ></v-combobox>
-      <v-combobox
-        v-model="SelectStyle"
-        :items="styles"
-        v-init:SelectStyle="interior.style"
-        label="Select Style"
-        outlined
-        dense
-        clearable
-      ></v-combobox>
-      <v-text-field
-        v-model="detail"
-        v-init:detail="interior.detail"
-        label="Detail"
-        outlined
-        dense
-        clearable
-      ></v-text-field>
-      <v-textarea
-        v-model="description"
-        v-init:description="interior.description"
-        label="Description"
-        outlined
-        clearable
-        name="input-7-4"
-      ></v-textarea>
-      <v-btn color="primary" v-on:click="onSubmit">Submit</v-btn>
-      <v-btn color="error" v-on:click="clear">Reset</v-btn>
-      <!-- <div class="btn-wraper">
-              <button type="button" class="btn btn-outline-dark" v-on:click="onSubmit">Submit</button>
-              <button type="button" class="btn btn-outline-danger" v-on:click="clear">Reset</button>
-      </div>-->
+      <v-row>
+        <v-col cols="12" md="5">
+          <v-card>
+            <v-img :src="imageData" v-if="imageData" :aspect-ratio="4/3" />
+          </v-card>
+        </v-col>
+        <v-col cols="12" md="7">
+          <v-file-input
+            v-model="image"
+            label="Select File"
+            v-on:change="fileSelected"
+            outlined
+            dense
+            name="image"
+          ></v-file-input>
+          <v-combobox
+            v-model="SelectStyle"
+            :items="styles"
+            v-init:SelectStyle="interior.style"
+            label="Select Style"
+            outlined
+            dense
+            clearable
+          ></v-combobox>
+          <v-combobox
+            v-model="SelectCategory"
+            :items="categories"
+            v-init:SelectCategory="interior.category"
+            label="Select Category"
+            outlined
+            dense
+            clearable
+          ></v-combobox>
+          <v-text-field
+            v-model="detail"
+            v-init:detail="interior.detail"
+            label="Detail"
+            outlined
+            dense
+            clearable
+          ></v-text-field>
+          <v-textarea
+            v-model="description"
+            v-init:description="interior.description"
+            label="Description"
+            outlined
+            clearable
+            rows="3"
+            name="input-7-4"
+          ></v-textarea>
+          <v-card-actions mx-auto>
+            <v-btn v-on:click="onSubmit" text outlined>POST</v-btn>
+            <v-btn v-on:click="clear" text outlined>RESET</v-btn>
+          </v-card-actions>
+        </v-col>
+      </v-row>
     </v-container>
   </v-app>
 </template>
@@ -137,8 +144,8 @@ export default {
         return {
           image: null,
           imageData: "",
-          SelectCategory: null,
           SelectStyle: null,
+          SelectCategory: null,
           detail: "",
           description: "",
         };
@@ -149,10 +156,32 @@ export default {
     return {
       image: null,
       imageData: "",
+      SelectStyle: "",
+      styles: [
+        "アジアン",
+        "アメリカン",
+        "アンティーク",
+        "インダストリアル",
+        "ヴィンテージ",
+        "カントリー",
+        "クラシック",
+        "コンテンポラリー",
+        "ゴシック",
+        "シンプル",
+        "地中海",
+        "トロピカル",
+        "ナチュラル",
+        "南欧",
+        "北欧",
+        "ミッドセンチュリー",
+        "ミニマル",
+        "モダン",
+        "レトロ",
+        "ロココ",
+        "和風",
+      ],
       SelectCategory: "",
       categories: ["デスク", "チェア", "ベッド", "マットレス", "ソファ"],
-      SelectStyle: "",
-      styles: ["アメリカン", "北欧"],
       detail: "",
       description: "",
     };
@@ -161,8 +190,8 @@ export default {
     onSubmit() {
       let data = new FormData();
       data.append("image", this.image);
-      data.append("category", this.SelectCategory);
       data.append("style", this.SelectStyle);
+      data.append("category", this.SelectCategory);
       data.append("detail", this.detail);
       data.append("description", this.description);
 
@@ -172,13 +201,12 @@ export default {
       //   })
       //   .catch((err) => console.log(err));
 
-      axios
-        .post("/api/interiors", data)
-        .then((response) => {
-          location.href = "/";
-          //console.log(response);
-        })
-        .catch((err) => console.log(err));
+      // axios
+      //   .post("/api/interiors", data)
+      //   .then((response) => {
+      //     location.href = "/";
+      //   })
+      //   .catch((err) => console.log(err));
 
       // const interior = {
       //   category: this.category,
@@ -186,12 +214,12 @@ export default {
       //   detail: this.detail,
       //   description: this.description,
       // };
-      // this.$emit("submit", interior);
+      this.$emit("submit", data);
     },
     clear() {
-      this.image = "";
-      this.SelectCategory = "";
+      this.image = null;
       this.SelectStyle = "";
+      this.SelectCategory = "";
       this.detail = "";
       this.description = "";
     },
@@ -224,4 +252,7 @@ export default {
 };
 </script>
 <style>
+.v-text-area{
+  display: block;
+}
 </style>

@@ -16,6 +16,10 @@ Vue.use(Vuetify);
 import '@mdi/font/css/materialdesignicons.css';
 import 'vuetify/dist/vuetify.min.css';
 
+// import moment from 'vue-moment'
+// Vue.use(moment);
+
+Vue.use(require('vue-moment'));
 
 
 

@@ -15,6 +15,11 @@ export const getInterior = async function(interiorId) {
     return response.json();
 };
 
+export const getMessage = async function(messageId) {
+    const response = await fetch(`${apiBase}/interiors/${messageId}`);
+    return response.json();
+};
+
 export const postInterior = async function (data) {
     const response = await fetch(`${apiBase}/interiors`, {
         method: "POST",
@@ -27,12 +32,12 @@ export const postInterior = async function (data) {
     return response.json();
 };
 
-export const updateInterior = async function (interiorId, interior) {
+export const updateInterior = async function (interiorId, data) {
     const response = await fetch(`${apiBase}/interiors/${interiorId}`, {
         method: "PUT",
-        body: JSON.stringify(interior),
+        body: JSON.stringify(data),
         headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "multipart/form-data",
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 
         }

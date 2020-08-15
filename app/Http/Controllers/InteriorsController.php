@@ -21,6 +21,11 @@ class InteriorsController extends Controller
         return view('interior/new');
     }
 
+    public function chat()
+    {
+        return view('interior/chat');
+    }
+
     public function mine()
     {
         return view('interior/myInterior');

@@ -1,5 +1,4 @@
 <template>
-  <!-- <h1>aaa</h1> -->
   <div class="edit-page">
     <InteriorForm v-on:submit="onSubmit" v-bind:interior="interior" />
   </div>
@@ -13,9 +12,16 @@ export default {
   name: "EditInterior",
   components: { InteriorForm },
   methods: {
-    onSubmit(interior) {
-      updateInterior(this.interiorId, interior)
-        .then(() => {
+    onSubmit(data) {
+      // updateInterior(this.interiorId, data)
+      //   .then(() => {
+      //     location.href = "/";
+      //   })
+      //   .catch((err) => console.log(err));
+      console.log(data.image);
+      axios
+        .post("/api/interiors/" + this.interiorId , data)
+        .then((response) => {
           location.href = "/";
         })
         .catch((err) => console.log(err));

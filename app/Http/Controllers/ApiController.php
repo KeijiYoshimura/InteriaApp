@@ -32,11 +32,9 @@ class ApiController extends Controller
 
     public function store(Request $request)
     {
-        $image_name = $request->image->getClientOriginalName();
-        //$image = storeAs('public', $request->image);
-
+        //$image_name = $request->image->getClientOriginalName();
         $result = $request->user()->interiors()->create([
-            'image' => $request->image->storeAs('public', $request->image),
+            'image' => $request->image->store('public'),
             'category' => $request->category,
             'style' => $request->style,
             'detail' => $request->detail,
@@ -45,9 +43,9 @@ class ApiController extends Controller
         return response()->json($result);
     }
 
-    public function update(Request $request, interior $interior)
+    public function update(Request $request, Interior $interior)
     {
-        $interior->image = $request->image;
+        $interior->image = $request->image->store('public');
         $interior->category = $request->category;
         $interior->style = $request->style;
         $interior->detail = $request->detail;

@@ -3,7 +3,7 @@
 @section('content')
 <div id="app">
     <v-app>
-        <interior-form></interior-form>
+        <new-interior></new-interior>
     </v-app>
 </div>
 @endsection

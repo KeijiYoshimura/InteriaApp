@@ -11,8 +11,8 @@
     </div>
   </v-app>-->
   <v-app>
-    <v-row>
-      <v-col cols="12" sm="10" offset-sm="1">
+    <!-- <v-row>
+      <v-col cols="12" sm="10" offset-sm="1"> -->
         <v-card>
           <v-container fluid>
             <v-row>
@@ -35,20 +35,13 @@
                       </v-row>
                     </template>
                   </v-img>
-                  <!-- <Interior
-                    v-for="interior in interiors"
-                    v-bind:key="interior.id"
-                    v-bind:interior="interior"
-                    v-on:detail="goDetail"
-                    v-on:edit="goEdit"
-                  />-->
                 </v-card>
               </v-col>
             </v-row>
           </v-container>
         </v-card>
-      </v-col>
-    </v-row>
+      <!-- </v-col>
+    </v-row> -->
   </v-app>
 </template>
 <script>

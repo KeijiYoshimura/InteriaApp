@@ -1,6 +1,6 @@
 <template>
   <div id="new-page">
-    <InteriorForm v-on:submit="onSubmit" v-bind:interior="interior"/>
+    <InteriorForm v-on:submit="onSubmit" v-bind:interior="interior" />
   </div>
 </template>
 <script>
@@ -10,20 +10,34 @@ import { postInterior } from "../../lib/api-service";
 export default {
   name: "NewInterior",
   components: { InteriorForm },
-  // data: function() {
-  //   return {
-  //     interiors: []
-  //   };
-  // },
+  data: function () {
+    return {
+      interior: {
+        image: null,
+        imageData: "",
+        SelectCategory: null,
+        SelectStyle: null,
+        detail: "",
+        description: "",
+      },
+    };
+  },
+  mounted() {
+    console.log("aaa");
+    this.onSubmit("adgg");
+  },
   methods: {
-    // onSubmit(interior) {
-    //   postInterior(interior)
-    //     .then(() => {
-    //       location.href = "/";
-    //     })
-    //     .catch(err => console.log(err));
-    // }
-  }
+    onSubmit(data) {
+      console.log(data.image);
+
+      axios
+        .post("/api/interiors", data)
+        .then((response) => {
+          location.href = "/";
+        })
+        .catch((err) => console.log(err));
+    },
+  },
 };
 </script>
 <style>
