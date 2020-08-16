@@ -53,4 +53,13 @@ class ApiController extends Controller
         $interior->save();
         return $interior;
     }
+
+    public function destroy(Request $request, Interior $interior)
+    {
+        $result = 'ok';
+        if (!$interior->delete()) {
+            $result = 'ng';
+        }
+        return compact('result');
+    }
 }

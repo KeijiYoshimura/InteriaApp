@@ -44,3 +44,13 @@ export const updateInterior = async function (interiorId, data) {
     });
     return response.json();
 };
+
+export const deleteInterior = async function(interiorId) {
+    const response = await fetch(`${apiBase}/interiors/${interiorId}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    });
+    return response.json();
+};

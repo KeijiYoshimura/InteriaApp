@@ -80,53 +80,56 @@
           </v-card>
         </v-col>
         <v-col cols="12" md="7">
-          <v-file-input
-            v-model="image"
-            label="Select File"
-            v-on:change="fileSelected"
-            outlined
-            dense
-            name="image"
-          ></v-file-input>
-          <v-combobox
-            v-model="SelectStyle"
-            :items="styles"
-            v-init:SelectStyle="interior.style"
-            label="Select Style"
-            outlined
-            dense
-            clearable
-          ></v-combobox>
-          <v-combobox
-            v-model="SelectCategory"
-            :items="categories"
-            v-init:SelectCategory="interior.category"
-            label="Select Category"
-            outlined
-            dense
-            clearable
-          ></v-combobox>
-          <v-text-field
-            v-model="detail"
-            v-init:detail="interior.detail"
-            label="Detail"
-            outlined
-            dense
-            clearable
-          ></v-text-field>
-          <v-textarea
-            v-model="description"
-            v-init:description="interior.description"
-            label="Description"
-            outlined
-            clearable
-            rows="3"
-            name="input-7-4"
-          ></v-textarea>
-          <v-card-actions mx-auto>
-            <v-btn v-on:click="onSubmit" text outlined>POST</v-btn>
-            <v-btn v-on:click="clear" text outlined>RESET</v-btn>
-          </v-card-actions>
+          <v-card>
+            <v-file-input
+              v-model="image"
+              label="Select File"
+              v-on:change="fileSelected"
+              outlined
+              dense
+              name="image"
+            ></v-file-input>
+            <v-combobox
+              v-model="SelectStyle"
+              :items="styles"
+              v-init:SelectStyle="interior.style"
+              label="Select Style"
+              outlined
+              dense
+              clearable
+            ></v-combobox>
+            <v-combobox
+              v-model="SelectCategory"
+              :items="categories"
+              v-init:SelectCategory="interior.category"
+              label="Select Category"
+              outlined
+              dense
+              clearable
+            ></v-combobox>
+            <v-text-field
+              v-model="detail"
+              v-init:detail="interior.detail"
+              label="Detail"
+              outlined
+              dense
+              clearable
+            ></v-text-field>
+            <v-textarea
+              v-model="description"
+              v-init:description="interior.description"
+              label="Description"
+              outlined
+              clearable
+              rows="3"
+              name="input-7-4"
+            ></v-textarea>
+            <v-card-actions>
+              <v-btn color="primary" text v-on:click="onSubmit(interior.id)">POST</v-btn>
+              <v-spacer></v-spacer>
+              <v-btn color="primary" text v-on:click="clear(interior.id)">CLEAR</v-btn>
+            </v-card-actions>
+          </v-card>
         </v-col>
       </v-row>
     </v-container>
@@ -252,7 +255,7 @@ export default {
 };
 </script>
 <style>
-.v-text-area{
+.v-text-area {
   display: block;
 }
 </style>
