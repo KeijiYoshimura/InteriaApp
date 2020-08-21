@@ -27,7 +27,6 @@
         @if (isset($data))
         <script>
             window.data = @JSON($data)
-
         </script>
         @endif
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">

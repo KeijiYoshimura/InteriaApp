@@ -20,16 +20,11 @@ class CreateInteriorsTable extends Migration
             $table->text('category');
             $table->text('style');
             $table->text('detail');
+            $table->text('tag');
             $table->text('description');
-            // $table->integer('category_id')->unsigned()->index();
-            // $table->integer('style_id')->unsigned()->index();
-            // $table->integer('detail_id')->unsigned()->index();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
-            // $table->foreign('category_id')->references('id')->on('categories');
-            // $table->foreign('style_id')->references('id')->on('styles');
-            // $table->foreign('detail_id')->references('id')->on('details');
         });
     }
 

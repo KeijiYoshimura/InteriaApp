@@ -18,25 +18,20 @@ class ApiController extends Controller
         return $user->interiors()->orderBy('created_at', 'desc')->get();
     }
 
-    // public function store(Request $request)
-    // {
-    //     $result = $request->user()->interiors()->create([
-    //         'image' => $request->image,
-    //         'category' => $request->category,
-    //         'style' => $request->style,
-    //         'detail' => $request->detail,
-    //         'description' => $request->description,
-    //     ]);
-    //     return response()->json($result);
-    // }
+    public function show(Interior $interior, $id)
+    {
+        // $interior = Interior::find($id);
+        return $interior;
+    }
 
     public function store(Request $request)
     {
         //$image_name = $request->image->getClientOriginalName();
         $result = $request->user()->interiors()->create([
             'image' => $request->image->store('public'),
-            'category' => $request->category,
+            'tag' => $request->tag,
             'style' => $request->style,
+            'category' => $request->category,
             'detail' => $request->detail,
             'description' => $request->description,
         ]);
@@ -46,9 +41,7 @@ class ApiController extends Controller
     public function update(Request $request, Interior $interior)
     {
         $interior->image = $request->image->store('public');
-        $interior->category = $request->category;
-        $interior->style = $request->style;
-        $interior->detail = $request->detail;
+        $interior->tag = $request->tag;
         $interior->description = $request->description;
         $interior->save();
         return $interior;

@@ -74,19 +74,18 @@
     </tr>-->
     <v-container>
       <v-row>
-        <v-col cols="12" md="5">
-          <v-card>
-            <v-img :src="imageData" v-if="imageData" :aspect-ratio="4/3" />
-          </v-card>
-        </v-col>
         <v-col cols="12" md="7">
           <v-card>
+            <v-img :src="imageData" v-if="imageData" :aspect-ratio="4/3" height="580px" />
+          </v-card>
+        </v-col>
+        <v-col cols="12" md="5">
+          <v-card height="580px">
             <v-file-input
               v-model="image"
               label="Select File"
               v-on:change="fileSelected"
               outlined
-              dense
               name="image"
             ></v-file-input>
             <v-combobox
@@ -95,7 +94,6 @@
               v-init:SelectStyle="interior.style"
               label="Select Style"
               outlined
-              dense
               clearable
             ></v-combobox>
             <v-combobox
@@ -104,7 +102,6 @@
               v-init:SelectCategory="interior.category"
               label="Select Category"
               outlined
-              dense
               clearable
             ></v-combobox>
             <v-text-field
@@ -112,7 +109,6 @@
               v-init:detail="interior.detail"
               label="Detail"
               outlined
-              dense
               clearable
             ></v-text-field>
             <v-textarea
@@ -121,13 +117,17 @@
               label="Description"
               outlined
               clearable
-              rows="3"
+              rows="5"
               name="input-7-4"
             ></v-textarea>
-            <v-card-actions>
-              <v-btn color="primary" text v-on:click="onSubmit(interior.id)">POST</v-btn>
+            <v-card-actions class="pt-0">
+              <v-btn color="red" text v-on:click="deleteInterior(interior.id)">
+                <v-icon x-large dark right>mdi-delete</v-icon>
+              </v-btn>
               <v-spacer></v-spacer>
-              <v-btn color="primary" text v-on:click="clear(interior.id)">CLEAR</v-btn>
+              <v-btn color="primary" text v-on:click="onSubmit">
+                <v-icon x-large dark right>mdi-arrow-up-circle</v-icon>
+              </v-btn>
             </v-card-actions>
           </v-card>
         </v-col>
@@ -150,6 +150,7 @@ export default {
           SelectStyle: null,
           SelectCategory: null,
           detail: "",
+          // tag: "",
           description: "",
         };
       },
@@ -184,7 +185,22 @@ export default {
         "和風",
       ],
       SelectCategory: "",
-      categories: ["デスク", "チェア", "ベッド", "マットレス", "ソファ"],
+      categories: [
+        "絵画",
+        "観葉植物",
+        "キッチン",
+        "ソファ",
+        "チェア",
+        "デスク",
+        "デスク",
+        "テレビ台",
+        "時計",
+        "ベッド",
+        "マットレス",
+        "ライト",
+        "ラグ",
+        "なし",
+      ],
       detail: "",
       description: "",
     };
@@ -192,10 +208,14 @@ export default {
   methods: {
     onSubmit() {
       let data = new FormData();
+      this.tag =
+        this.SelectStyle + "/" + this.SelectCategory + "/" + this.detail;
+      console.log(this.tag);
       data.append("image", this.image);
       data.append("style", this.SelectStyle);
       data.append("category", this.SelectCategory);
       data.append("detail", this.detail);
+      data.append("tag", this.tag);
       data.append("description", this.description);
 
       // postInterior(data)
@@ -244,6 +264,12 @@ export default {
     //     textarea.style.height = textarea.scrollHeight + "px";
     //   });
     // },
+  },
+  computed: {
+    createTag() {
+      this.tag =
+        this.SelectStyle + "/" + this.SelectCategory + "/" + this.detail;
+    },
   },
   directives: {
     init: {

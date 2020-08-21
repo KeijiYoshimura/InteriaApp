@@ -10,12 +10,17 @@ export const getMyInteriors = async function () {
     return response.json();
 };
 
-export const getInterior = async function(interiorId) {
-    const response = await fetch(`${apiBase}/interiors/${interiorId}`);
-    return response.json();
-};
+// export const getInterior = async function (interiorId) {
+//     const response = await fetch(`${apiBase}/interiors/${interiorId}`);
+//     return response.json();
+// };
 
-export const getMessage = async function(messageId) {
+// export const getUser = async function (userId) {
+//     const response = await fetch(`${apiBase}/interiors/${userId}`);
+//     return response.json();
+// };
+
+export const getMessages = async function (messageId) {
     const response = await fetch(`${apiBase}/interiors/${messageId}`);
     return response.json();
 };
@@ -45,11 +50,23 @@ export const updateInterior = async function (interiorId, data) {
     return response.json();
 };
 
-export const deleteInterior = async function(interiorId) {
+export const deleteInterior = async function (interiorId) {
     const response = await fetch(`${apiBase}/interiors/${interiorId}`, {
         method: "DELETE",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    return response.json();
+};
+
+export const deleteMessage = async function (messageId) {
+    const response = await fetch(`${apiBase}/interiors/${messageId}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
     return response.json();

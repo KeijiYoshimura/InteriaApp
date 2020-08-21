@@ -23,7 +23,7 @@ class CreateMessagesTable extends Migration
 
             //$table->foreign('interior_id')->references('id')->on('interiors');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('interior_id')->references('id')->on('interiors');
+            $table->foreign('interior_id')->references('id')->on('interiors')->onDelete('cascade');
         });
     }
 

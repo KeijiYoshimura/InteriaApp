@@ -2,11 +2,12 @@
   <v-app>
     <!-- <v-content>
     <v-container>-->
-    <v-card>
+    <v-card height="620px">
+      <!--height="837px"-->
       <v-card-actions>
         <v-card-title>Chat Field</v-card-title>
         <v-spacer></v-spacer>
-        <v-btn color="primary" text @click="send">Submit</v-btn>
+        <v-btn color="primary" text v-on:click="sendMessage">POST</v-btn>
       </v-card-actions>
       <v-card-text class="py-0">
         <v-text-field
@@ -51,13 +52,18 @@
         <v-subheader>Chat Field</v-subheader>
         {{ offsetTop }}
       </v-row>-->
-      <v-container id="scroll-target" style="max-height: 450px" class="overflow-y-auto">
-        <v-row v-scroll:#scroll-target="onScroll" style="height: 1000px">
+      <v-container id="scroll-target" style="height: 430px" class="overflow-y-auto">
+        <v-row v-scroll:#scroll-target="onScroll" style="height: 800px">
           <v-col>
             <v-card v-for="message in messages" v-bind:key="message.id">
               <v-card-title>{{message.user.name}}</v-card-title>
               <v-card-text>{{message.created_at | moment}}</v-card-text>
-              <v-card-text>{{message.body}}</v-card-text>
+              <v-card-text class="pt-0">{{message.body}}</v-card-text>
+              <!-- <v-btn color="primary" text v-on:click="deleteMessage(message.id)">Delete</v-btn> -->
+              <!-- <v-btn color="primary" text v-on:click="updateMessage(message.id)">Edit</v-btn> -->
+              <v-btn color="red" text v-on:click="deleteMessage(message.id)">
+                <v-icon dark right>mdi-delete</v-icon>
+              </v-btn>
             </v-card>
           </v-col>
         </v-row>
@@ -90,35 +96,49 @@ export default {
         this.messages = response.data;
       });
     },
-    send() {
+    sendMessage() {
       const url = "/ajax/chat";
       const params = {
-        body: this.body,
         interior_id: this.interior_id,
+        body: this.body,
       };
       axios.post(url, params).then((response) => {
-        // 成功したらメッセージをクリア
         this.body = "";
+      });
+    },
+    // ondelete(messageId) {
+    //   this.$emit("delete", messageId);
+    // },
+    deleteMessage(messageId) {
+      //console.log(messageId);
+      const idx = this.messages.findIndex((m) => m.id === messageId);
+      const url = "/ajax/chat/" + messageId;
+      //console.log(url);
+      // const params = {
+      //   message_id: messageId,
+      //   body: this.body,
+      // };
+      axios.delete(url).then((response) => {
+        //this.message = this.messages.splice(idx, 1);
+        console.log(response);
+        //this.messages = response.data;
       });
     },
     onScroll(e) {
       this.offsetTop = e.target.scrollTop;
     },
   },
-  // computed: {
-  //   interiorId() {
-  //     return this.interior.id;
-  //   },
-  //   interior() {
-  //     return window.data.interior;
-  //   },
-  // },
   mounted() {
     this.getMessages();
 
     Echo.channel("chat").listen("MessageCreated", (e) => {
-      this.getMessages(); // メッセージを再読込
+      console.log("success!");
+      this.getMessages();
     });
+    // Echo.channel("chat").listen("MessageDeleted", (e) => {
+    //   console.log("bbb");
+    //   this.getMessages();
+    // });
   },
   filters: {
     moment: function (date) {

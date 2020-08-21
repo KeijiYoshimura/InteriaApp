@@ -22,14 +22,11 @@ export default {
       },
     };
   },
-  mounted() {
-    console.log("aaa");
-    this.onSubmit("adgg");
-  },
   methods: {
     onSubmit(data) {
-      console.log(data.image);
-
+      // for (let value of data.entries()) {
+      //   console.log(value);
+      // }
       axios
         .post("/api/interiors", data)
         .then((response) => {

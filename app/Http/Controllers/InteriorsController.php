@@ -31,11 +31,12 @@ class InteriorsController extends Controller
         return view('interior/myInterior');
     }
 
-    public function detail(Interior $interior)
+    public function detail($id)
     {
         return view('interior/detail', [
             'data' => [
-                'interior' => $interior,
+                'interior' => Interior::with('user')->find($id),
+                'interior2' => Interior::find($id)->with('user')->get(),
             ]
         ]);
     }

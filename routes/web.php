@@ -17,14 +17,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/', 'InteriorsController@top');
     Route::get('/new', 'InteriorsController@new');
     Route::get('/mine', 'InteriorsController@mine');
-    Route::get('/detail/{interior}', 'InteriorsController@detail');
+    Route::get('/detail/{id}', 'InteriorsController@detail');
     Route::get('/edit/{interior}', 'InteriorsController@edit');
     Route::get('/chat1', 'InteriorsController@chat');
 });
 
 Route::prefix('api')->group(function () {
     Route::get('/interiors', 'ApiController@index');
-    // Route::get('/interiors/{interior}', 'ApiController@show');
+    //Route::get('/interiors/{interior}', 'ApiController@show');
     Route::get('/interiors/mine', 'ApiController@mine');
     Route::post('/interiors', 'ApiController@store');
 
@@ -44,6 +44,11 @@ Route::prefix('api')->group(function () {
 Auth::routes();
 
 Route::get('chat', 'ChatController@index');
-//Route::get('ajax/chat/', 'Ajax\ChatController@index'); // メッセージ一覧を取得
-Route::get('ajax/chat/{interior}', 'Ajax\ChatController@index'); // メッセージ一覧を取得
-Route::post('ajax/chat', 'Ajax\ChatController@create'); // チャット登録
+Route::get('ajax/chat/{interior}', 'Ajax\ChatController@index');
+Route::post('ajax/chat', 'Ajax\ChatController@create');
+Route::delete('ajax/chat/{message}', 'Ajax\ChatController@destroy');
+//Route::delete('ajax/chat', 'Ajax\ChatController@destroy');
+Route::post('ajax/chat/{message}', 'Ajax\ChatController@update');
+
+
+Route::get('template', 'ChatController@template');

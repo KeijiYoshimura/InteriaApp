@@ -8,6 +8,11 @@ class ChatController extends Controller
 {
     public function index()
     {
-        return view('chat');
+        return view('interior/chat');
+    }
+
+    public function template()
+    {
+        return view('interior/template');
     }
 }
