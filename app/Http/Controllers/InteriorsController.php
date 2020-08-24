@@ -31,6 +31,11 @@ class InteriorsController extends Controller
         return view('interior/myInterior');
     }
 
+    public function template()
+    {
+        return view('interior/template');
+    }
+
     public function detail($id)
     {
         return view('interior/detail', [

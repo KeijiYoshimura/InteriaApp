@@ -53,6 +53,14 @@ class ChatController extends Controller
         //     'body' => $request->body
         // ]);
 
+        if (\Auth::id() == $message->user_id) {
+            event(new MessageCreated($message));
+
+            $result = $message->delete();
+        } else {
+            return "failed!!";
+        }
+
         event(new MessageCreated($message));
 
         $result = $message->delete();

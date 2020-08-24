@@ -1,77 +1,5 @@
 <template>
   <v-app>
-    <!-- <input v-on:change="fileSelected" type="file" name="image" /> -->
-    <!-- <tr>
-            <th>
-              <label for="interiorform-category">Category</label>
-            </th>
-            <td>
-              <input
-                v-model="category"
-                type="text"
-                list="category_list"
-                v-init:category="interior.category"
-              />
-              <datalist id="category_list">
-                <option value="デスク"></option>
-                <option value="チェア"></option>
-                <option value="ベッド"></option>
-                <option value="マットレス"></option>
-                <option value="ソファ"></option>
-              </datalist>
-            </td>
-          </tr>
-          <tr>
-            <th>
-              <label for="interiorform-style">Style</label>
-            </th>
-            <td>
-              <input v-model="style" type="text" list="style_list" v-init:style="interior.style" />
-              <datalist id="style_list">
-                <option value="アメリカン"></option>
-                <option value="北欧"></option>
-                <option value="南欧"></option>
-                <option value="アジアン"></option>
-                <option value="ゴシック"></option>
-                <option value="ロココ"></option>
-                <option value="モダン"></option>
-                <option value="アンティーク"></option>
-                <option value="ヴィンテージ"></option>
-                <option value="ロココ"></option>
-                <option value="シンプル"></option>
-              </datalist>
-            </td>
-          </tr>
-          <tr>
-            <th>
-              <label for="interiorform-detail">Detail</label>
-            </th>
-            <td>
-              <input
-                v-model="detail"
-                id="interiorform-detail"
-                type="text"
-                name="detail"
-                v-init:detail="interior.detail"
-              />
-            </td>
-          </tr>
-          <tr>
-            <th>
-              <label for="interiorform-description">Description</label>
-            </th>
-            <td>
-              <textarea
-                ref="adjust_textarea"
-                v-on:click="adjustHeight"
-                v-model="description"
-                id="interiorform-description"
-                type="text"
-                name="description"
-                v-init:description="interior.description"
-              ></textarea>
-            </td>
-    </tr>-->
     <v-container>
       <v-row>
         <v-col cols="12" md="7">
@@ -209,7 +137,7 @@ export default {
     onSubmit() {
       let data = new FormData();
       this.tag =
-        this.SelectStyle + "/" + this.SelectCategory + "/" + this.detail;
+        this.SelectStyle + "/" + this.SelectCategory + "/" + this.detail + "/" + this.description;
       console.log(this.tag);
       data.append("image", this.image);
       data.append("style", this.SelectStyle);
@@ -247,7 +175,6 @@ export default {
       this.description = "";
     },
     fileSelected(e) {
-      //this.image = event.target.files[0];
       const file = e;
       const reader = new FileReader();
       reader.onload = (e) => {
@@ -255,15 +182,6 @@ export default {
       };
       reader.readAsDataURL(file);
     },
-    // adjustHeight() {
-    //   const textarea = this.$refs.adjust_textarea;
-    //   const resetHeight = new Promise(function (resolve) {
-    //     resolve((textarea.style.height = "auto"));
-    //   });
-    //   resetHeight.then(function () {
-    //     textarea.style.height = textarea.scrollHeight + "px";
-    //   });
-    // },
   },
   computed: {
     createTag() {

@@ -1,5 +1,15 @@
 const apiBase = "/api";
 
+export const getUsers = async function (userId) {
+    const response = await fetch(`${apiBase}/users`);
+    return response.json();
+};
+
+export const getUser = async function () {
+    const response = await fetch(`${apiBase}/users/{$userId}`);
+    return response.json();
+};
+
 export const getInteriors = async function () {
     const response = await fetch(`${apiBase}/interiors`);
     return response.json();
@@ -10,13 +20,13 @@ export const getMyInteriors = async function () {
     return response.json();
 };
 
+export const getEachInteriors = async function (userId) {
+    const response = await fetch(`${apiBase}/interiors/${userId}`);
+    return response.json();
+};
+
 // export const getInterior = async function (interiorId) {
 //     const response = await fetch(`${apiBase}/interiors/${interiorId}`);
-//     return response.json();
-// };
-
-// export const getUser = async function (userId) {
-//     const response = await fetch(`${apiBase}/interiors/${userId}`);
 //     return response.json();
 // };
 

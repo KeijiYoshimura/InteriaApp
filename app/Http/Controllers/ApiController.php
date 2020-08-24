@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Interior;
+use App\User;
 
 class ApiController extends Controller
 {
@@ -12,16 +13,27 @@ class ApiController extends Controller
         return Interior::orderBy('created_at', 'desc')->get();
     }
 
+    public function users()
+    {
+        return User::all();
+    }
+
     public function mine()
     {
         $user = \Auth::user();
         return $user->interiors()->orderBy('created_at', 'desc')->get();
     }
 
-    public function show(Interior $interior, $id)
+    public function each(User $user)
+    {
+        //$user = \Auth::user();
+        return $user->interiors()->orderBy('created_at', 'desc')->get();
+    }
+
+    public function user(User $user)
     {
         // $interior = Interior::find($id);
-        return $interior;
+        return $user;
     }
 
     public function store(Request $request)

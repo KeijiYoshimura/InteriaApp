@@ -71,6 +71,10 @@ export default {
   text-align: center;
 }
 
+.centered-input input {
+  text-align: center;
+}
+
 .interiors-search-container {
   width: 100%;
   text-align: center;

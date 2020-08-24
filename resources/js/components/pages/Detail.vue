@@ -98,13 +98,6 @@ export default {
     //     console.log(e);
     //   }
     // },
-    // async loadUser() {
-    //   try {
-    //     this.user = await getUser(this.interior.user_id); //interiorを取得していないからinteriorIdが使えない
-    //   } catch (e) {
-    //     this.user = [];
-    //     console.log(e);
-    //   }
     deleteMessage(messageId) {
       console.log(messageId);
       const idx = this.messages.findIndex((m) => m.id === messageId);
@@ -132,6 +125,7 @@ export default {
 <style>
 .py-4 {
   background-color: #eeeeee;
+  height: 100vh;
 }
 
 #app {

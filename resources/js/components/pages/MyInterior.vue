@@ -42,10 +42,57 @@
             v-for="interior in interiors"
             v-bind:key="interior.id"
             class="d-flex child-flex"
-            cols="12"
+            cols="4"
           >
             <v-row>
-              <v-col cols="12" sm="5" class="pr-0">
+              <v-col>
+                <v-card>
+                  <v-img :src="interior.image | replace('public','/storage')" :aspect-ratio="4/3" />
+                  <v-responsive>
+                    <v-list-item>
+                      <v-list-item-icon>
+                        <v-icon>mdi-clock</v-icon>
+                      </v-list-item-icon>
+                      <v-list-item-content>
+                        <v-list-item-title>{{ interior.created_at | moment }}</v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+                    <!-- <v-list-item>
+                      <v-list-item-icon>
+                        <v-icon>mdi-account</v-icon>
+                      </v-list-item-icon>
+                      <v-list-item-content>
+                        <v-list-item-title>{{ interior.user.name }}</v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item> -->
+                    <v-list-item>
+                      <v-list-item-icon>
+                        <v-icon>mdi-message</v-icon>
+                      </v-list-item-icon>
+                      <v-list-item-content>
+                        <v-list-item-title>
+                          <pre>{{interior.description}}</pre>
+                        </v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+                  </v-responsive>
+                  <v-card-actions>
+                    <v-btn color="green darken-2" text v-on:click="goDetail(interior.id)">
+                      <v-icon dark right>mdi-arrow-right-circle</v-icon>
+                    </v-btn>
+                    <v-spacer></v-spacer>
+                    <v-btn color="dark" text v-on:click="goEdit(interior.id)">
+                      <v-icon dark right>mdi-grease-pencil</v-icon>
+                    </v-btn>
+                    <v-spacer></v-spacer>
+                    <v-btn color="red" text v-on:click="deleteInterior(interior.id)">
+                      <v-icon dark right>mdi-delete</v-icon>
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-col>
+
+              <!-- <v-col cols="12" sm="5" class="pr-0">
                 <v-card>
                   <v-img :src="interior.image | replace('public','/storage')" :aspect-ratio="4/3" />
                 </v-card>
@@ -72,7 +119,7 @@
                     </v-btn>
                   </v-card-actions>
                 </v-card>
-              </v-col>
+              </v-col>-->
             </v-row>
           </v-col>
         </v-row>

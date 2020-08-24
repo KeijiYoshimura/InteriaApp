@@ -20,12 +20,25 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/detail/{id}', 'InteriorsController@detail');
     Route::get('/edit/{interior}', 'InteriorsController@edit');
     Route::get('/chat1', 'InteriorsController@chat');
+    Route::get('/template', 'InteriorsController@template');
+
+
+    Route::get('/index', 'UsersController@index');
+    Route::get('/show/{id}', 'UsersController@show');
+
+    // Route::group(['prefix' => 'users/{id}'], function () {
+    //     Route::post('follow', 'UserFollowController@store')->name('user.follow');
+    //     Route::delete('unfollow', 'UserFollowController@destroy')->name('user.unfollow');
+    //     Route::get('followings', 'UsersController@followings')->name('users.followings');
+    //     Route::get('followers', 'UsersController@followers')->name('users.followers');
+    // });
 });
 
 Route::prefix('api')->group(function () {
     Route::get('/interiors', 'ApiController@index');
     //Route::get('/interiors/{interior}', 'ApiController@show');
     Route::get('/interiors/mine', 'ApiController@mine');
+    Route::get('/interiors/{user}', 'ApiController@mine');
     Route::post('/interiors', 'ApiController@store');
 
     // Route::post('/interiors', function () {
@@ -38,7 +51,10 @@ Route::prefix('api')->group(function () {
     // });
     Route::post('/interiors/{interior}', 'ApiController@update');
     Route::delete('/interiors/{interior}', 'ApiController@destroy');
-    Route::patch('/interiors/{interior}/fin', 'ApiController@changeFinish');
+    //Route::patch('/interiors/{interior}/fin', 'ApiController@changeFinish');
+
+    Route::get('/users', 'ApiController@users');
+    Route::get('/users/{user}', 'ApiController@user');
 });
 
 Auth::routes();

@@ -7,7 +7,9 @@
       <v-card-actions>
         <v-card-title>Chat Field</v-card-title>
         <v-spacer></v-spacer>
-        <v-btn color="primary" text v-on:click="sendMessage">POST</v-btn>
+        <v-btn color="primary" text v-on:click="sendMessage()">
+          <v-icon large dark right>mdi-arrow-up-circle</v-icon>
+        </v-btn>
       </v-card-actions>
       <v-card-text class="py-0">
         <v-text-field
@@ -64,6 +66,8 @@
               <v-btn color="red" text v-on:click="deleteMessage(message.id)">
                 <v-icon dark right>mdi-delete</v-icon>
               </v-btn>
+              <!-- <div v-if="isUser">最初に表示される要素</div>
+              <div v-else>切り替え後に表示される要素</div>-->
             </v-card>
           </v-col>
         </v-row>
@@ -86,10 +90,13 @@ export default {
       body: "",
       interior_id: this.interior.id,
       messages: [],
-      offsetTop: 0,
+      // isUser: false,
+      //offsetTop: 0,
     };
   },
   methods: {
+    // checkUser() {
+    // },
     getMessages() {
       const url = "/ajax/chat/" + this.interior_id;
       axios.get(url).then((response) => {

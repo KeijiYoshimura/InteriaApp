@@ -1,5 +1,9 @@
+@extends('layouts.app2')
+
+@section('content')
 <div id="app">
     <v-app>
-        <template></template>
+        <top></top>
     </v-app>
 </div>
+@endsection
