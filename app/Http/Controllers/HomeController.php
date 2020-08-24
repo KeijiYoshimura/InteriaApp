@@ -23,6 +23,18 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        return view('chat');
+    }
+
+    public function add(Request $request)
+    {
+        $user = Auth::user();
+        $comment = $request->input('comment');
+        Comment::create([
+        'login_id' => $user->id,
+        'name' => $user->name,
+        'comment' => $comment
+    ]);
+        return redirect()->route('home');
     }
 }
