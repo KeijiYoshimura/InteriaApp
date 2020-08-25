@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Interior;
+use Illuminate\Support\Facades\Auth;
 
 class InteriorsController extends Controller
 {
@@ -12,7 +13,7 @@ class InteriorsController extends Controller
         if (\Auth::check()) {
             return view('interior/top');
         } else {
-            return view('welcome');
+            return view('home');
         }
     }
 
@@ -38,10 +39,13 @@ class InteriorsController extends Controller
 
     public function detail($id)
     {
+        $user = Auth::user();
+
         return view('interior/detail', [
             'data' => [
                 'interior' => Interior::with('user')->find($id),
                 'interior2' => Interior::find($id)->with('user')->get(),
+                'user' => Auth::user(),
             ]
         ]);
     }

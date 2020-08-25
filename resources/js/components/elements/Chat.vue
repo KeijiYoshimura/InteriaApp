@@ -66,7 +66,9 @@
               <v-btn color="red" text v-on:click="deleteMessage(message.id)">
                 <v-icon dark right>mdi-delete</v-icon>
               </v-btn>
-              <!-- <div v-if="isUser">最初に表示される要素</div>
+              <!-- <div v-if="checkUser">
+                <v-icon>mdi-delete</v-icon>
+              </div>
               <div v-else>切り替え後に表示される要素</div>-->
             </v-card>
           </v-col>
@@ -79,28 +81,41 @@
 </template>
 <script>
 import moment from "moment";
+import { getAuthUser } from "../../lib/api-service";
 
 export default {
   name: "Chat",
   props: {
-    interior: {},
+    interior: Object,
   },
   data: function () {
     return {
       body: "",
       interior_id: this.interior.id,
       messages: [],
+      user: {},
       // isUser: false,
       //offsetTop: 0,
     };
   },
   methods: {
+    async loadAuthUser() {
+      try {
+        this.user = await getAuthUser();
+        console.log('success');
+      } catch (e) {
+        this.user = [];
+        console.log(e);
+      }
+    },
     // checkUser() {
+    //   return message.user_id ===
     // },
     getMessages() {
       const url = "/ajax/chat/" + this.interior_id;
       axios.get(url).then((response) => {
         this.messages = response.data;
+        console.log(response.data[0].user_id);
       });
     },
     sendMessage() {
@@ -136,6 +151,9 @@ export default {
     },
   },
   mounted() {
+    this.loadAuthUser();
+    //console.log(this.user);
+
     this.getMessages();
 
     Echo.channel("chat").listen("MessageCreated", (e) => {

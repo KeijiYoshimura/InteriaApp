@@ -10,6 +10,11 @@ export const getUser = async function () {
     return response.json();
 };
 
+export const getAuthUser = async function () {
+    const response = await fetch(`${apiBase}/users/auth`);
+    return response.json();
+};
+
 export const getInteriors = async function () {
     const response = await fetch(`${apiBase}/interiors`);
     return response.json();

@@ -31,15 +31,6 @@ class ChatController extends Controller
         event(new MessageCreated($message));
     }
 
-    // public function update(Request $request, Message $message)
-    // {
-    //     $message = messages()->update([
-    //         'interior_id' => $request->interior_id,
-    //         'body' => $request->body
-    //     ]);
-    //     event(new MessageCreated($message));
-    // }
-
     public function destroy(Request $request, Message $message)
     {
         //$messages = Message::all();

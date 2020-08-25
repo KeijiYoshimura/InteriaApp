@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app2')
 
 @section('content')
 <div class="container">
@@ -20,4 +20,10 @@
         </div>
     </div>
 </div>
+
+{{-- <div id="app">
+    <v-app>
+        <new-interior></new-interior>
+    </v-app>
+</div> --}}
 @endsection

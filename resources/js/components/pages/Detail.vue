@@ -72,15 +72,21 @@ export default {
     };
   },
   computed: {
-    interiorId() {
-      return this.interior.id;
+    data() {
+      return window.data;
     },
     interior() {
       return window.data.interior;
     },
+    interiorId() {
+      return this.interior.id;
+    },
+    user() {
+      return window.data.user;
+    },
   },
   mounted() {
-    //console.log(window.data);
+    console.log(window.data);
     //this.getMessages();
   },
   methods: {
