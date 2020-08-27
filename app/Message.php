@@ -9,7 +9,7 @@ class Message extends Model
     protected $guarded = ['id'];
 
     protected $fillable = [
-        'user_id','interior_id','body'
+        'user_id','interior_id','body','is_read'
     ];
 
     public function interior()

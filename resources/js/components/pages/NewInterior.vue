@@ -30,7 +30,7 @@ export default {
       axios
         .post("/api/interiors", data)
         .then((response) => {
-          location.href = "/";
+          location.href = "/top";
         })
         .catch((err) => console.log(err));
     },

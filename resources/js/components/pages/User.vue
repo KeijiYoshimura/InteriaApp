@@ -15,6 +15,8 @@
       </v-col>
     </v-row>-->
 
+    <!-- <FollowButton v-bind:user="user"/> -->
+
     <v-row>
       <v-col cols="12" sm="10" offset-sm="1">
         <v-container fluid>
@@ -72,19 +74,19 @@
 </template>
 <script>
 import { getUser, getEachInteriors } from "../../lib/api-service";
+import FollowButton from "../elements/FollowButton";
+import moment from "moment";
 
 export default {
   name: "User",
-  components: {},
+  components: { FollowButton },
   data: function () {
     return {
       interiors: [],
     };
   },
   mounted() {
-    // console.log(user);
-    console.log(window.data);
-    // this.loadEachInteriors();
+    //console.log(window.data);
   },
   methods: {
     async loadEachInteriors(userId) {
@@ -103,6 +105,9 @@ export default {
   filters: {
     replace: function (str) {
       return str.replace("public", "/storage");
+    },
+    moment: function (date) {
+      return moment(date).format("YYYY/MM/DD HH:mm");
     },
   },
   computed: {

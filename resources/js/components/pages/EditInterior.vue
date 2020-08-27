@@ -22,7 +22,7 @@ export default {
       axios
         .post("/api/interiors/" + this.interiorId , data)
         .then((response) => {
-          location.href = "/";
+          location.href = "/top";
         })
         .catch((err) => console.log(err));
     },

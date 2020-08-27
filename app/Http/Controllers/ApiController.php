@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Interior;
 use App\User;
+use Illuminate\Support\Facades\Auth;
+use Encore\Admin\Facades\Admin;
 
 class ApiController extends Controller
 {
@@ -20,7 +22,7 @@ class ApiController extends Controller
 
     public function mine()
     {
-        $user = \Auth::user();
+        $user = Auth::user();
         return $user->interiors()->orderBy('created_at', 'desc')->get();
     }
 
@@ -33,6 +35,12 @@ class ApiController extends Controller
     public function user(User $user)
     {
         // $interior = Interior::find($id);
+        return $user;
+    }
+
+    public function auth()
+    {
+        $user = Auth::user();
         return $user;
     }
 

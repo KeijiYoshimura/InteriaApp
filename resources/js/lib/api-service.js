@@ -10,6 +10,11 @@ export const getUser = async function () {
     return response.json();
 };
 
+export const getAuthUser = async function () {
+    const response = await fetch(`${apiBase}/users/auth`);
+    return response.json();
+};
+
 export const getInteriors = async function () {
     const response = await fetch(`${apiBase}/interiors`);
     return response.json();
@@ -77,6 +82,23 @@ export const deleteMessage = async function (messageId) {
         headers: {
             "Content-Type": "application/json",
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    return response.json();
+};
+
+export const checkFollowed = async function (userId) {
+    const response = await fetch(`users/${userId}/check`);
+    return response.json();
+};
+
+export const changeRead = async function (messageId) {
+    const response = await fetch(`ajax/messages/${messageId}/read`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+
         }
     });
     return response.json();

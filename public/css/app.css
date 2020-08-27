@@ -10927,3 +10927,22 @@ a.text-dark:focus {
     border-color: #dee2e6;
   }
 }
+
+.bg-white {
+  background-color: #708090 !important;
+}
+
+.navbar-light .navbar-brand {
+  color: #eeeeee;
+  font-size: 2.5em;
+  font-family: "Montserrat Subrayada", sans-serif;
+}
+
+.navbar-light .navbar-nav .navbar-link {
+  color: #eeeeee;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: #eeeeee;
+}
+

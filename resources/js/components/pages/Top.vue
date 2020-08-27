@@ -8,14 +8,13 @@
     />
     <v-row>
     <v-col cols="12" sm="10" offset-sm="1">
-    <!-- <v-card> -->
       <v-container fluid>
         <v-row>
           <v-col
             v-for="interior in filteredInteriors"
             v-bind:key="interior.id"
             class="d-flex child-flex"
-            cols="4"
+            cols="3"
           >
             <v-card flat tile class="d-flex">
               <v-img
@@ -34,7 +33,6 @@
           </v-col>
         </v-row>
       </v-container>
-    <!-- </v-card> -->
     </v-col>
     </v-row>
   </v-app>
@@ -54,7 +52,6 @@ export default {
         onlyFavorite: false,
       },
       interiors: [],
-      tag: "",
     };
   },
   mounted() {
@@ -82,9 +79,6 @@ export default {
     goEdit(interior) {
       location.href = `/edit/${interior.id}`;
     },
-    output() {
-      console.log(this.interiors["style"]);
-    },
   },
   filters: {
     replace: function (str) {
@@ -92,12 +86,6 @@ export default {
     },
   },
   computed: {
-    // tag() {
-    //   this.tag =
-    //     this.interiors[style] +
-    //     this.interiors[category] +
-    //     this.interiors[detail];
-    // },
     filteredInteriors() {
       const keyword = this.searchConditions.keyword;
       //const onlyFavorite = this.searchConditions.onlyFavorite;
