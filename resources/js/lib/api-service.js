@@ -86,3 +86,20 @@ export const deleteMessage = async function (messageId) {
     });
     return response.json();
 };
+
+export const checkFollowed = async function (userId) {
+    const response = await fetch(`users/${userId}/check`);
+    return response.json();
+};
+
+export const changeRead = async function (messageId) {
+    const response = await fetch(`ajax/messages/${messageId}/read`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+
+        }
+    });
+    return response.json();
+};

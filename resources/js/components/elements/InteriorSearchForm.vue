@@ -5,7 +5,7 @@
         <v-col cols="12" sm="4" offset-sm="4">
           <v-text-field
             prepend-icon="mdi-magnify"
-            class="centered-input"
+            clearable
             height="30px"
             name="keyword"
             v-model="innerKeyword"

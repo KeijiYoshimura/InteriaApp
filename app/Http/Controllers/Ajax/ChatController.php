@@ -26,7 +26,8 @@ class ChatController extends Controller
         $user = Auth::user();
         $message = $user->messages()->create([
             'interior_id' => $request->interior_id,
-            'body' => $request->body
+            'body' => $request->body,
+            'is_read' => $request->is_read,
         ]);
         event(new MessageCreated($message));
     }
@@ -62,5 +63,12 @@ class ChatController extends Controller
         // $message = Message::where('id', $request->id)->delete();
         // $messages = Message::all();
         // return $messages;
+    }
+
+    public function changeRead(Message $message)
+    {
+        $message->is_read = !$message->is_read;
+        $message->save();
+        return $message;
     }
 }

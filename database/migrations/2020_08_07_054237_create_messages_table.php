@@ -19,6 +19,7 @@ class CreateMessagesTable extends Migration
             $table->integer('user_id')->unsigned()->index();
             $table->integer('interior_id')->unsigned()->index();
             $table->text('body');
+            $table->boolean('is_read');
             $table->timestamps();
 
             //$table->foreign('interior_id')->references('id')->on('interiors');

@@ -22,7 +22,7 @@ class ApiController extends Controller
 
     public function mine()
     {
-        $user = \Auth::user();
+        $user = Auth::user();
         return $user->interiors()->orderBy('created_at', 'desc')->get();
     }
 
@@ -38,14 +38,11 @@ class ApiController extends Controller
         return $user;
     }
 
-    // public function auth()
-    // {
-    //     // $user = \Auth::user();
-    //     // return $user->interiors()->orderBy('created_at', 'desc')->get();
-
-    //     $user = "aaaa";
-    //     return $user;
-    // }
+    public function auth()
+    {
+        $user = Auth::user();
+        return $user;
+    }
 
     public function store(Request $request)
     {

@@ -43,7 +43,13 @@
                 </button>
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/index') }}">All User</span></a>
+                        <a class="nav-link" href="{{ url('/users') }}">All User</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/followUser') }}">Followings</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/followUser') }}">Favorites</span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('/new') }}">New Post</a>
@@ -72,9 +78,9 @@
                         </li>
                         @endif
                         @else
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a class="nav-link" href="{{ url('/mine') }}">{{ Auth::user()->name }}</a>
-                        </li>
+                        </li> --}}
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

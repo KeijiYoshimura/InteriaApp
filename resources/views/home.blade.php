@@ -1,7 +1,7 @@
 @extends('layouts.app2')
 
 @section('content')
-<div class="container">
+{{-- <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -19,11 +19,11 @@
             </div>
         </div>
     </div>
-</div>
-
-{{-- <div id="app">
-    <v-app>
-        <new-interior></new-interior>
-    </v-app>
 </div> --}}
+
+<div id="app">
+    <v-app>
+        <home></home>
+    </v-app>
+</div>
 @endsection
