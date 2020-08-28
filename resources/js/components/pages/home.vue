@@ -11,10 +11,12 @@
               cols="3"
             >
               <v-card flat tile class="d-flex">
+                <!-- <v-card-text>{{interior.image}}</v-card-text> -->
                 <v-img
-                  :src="interior.image | replace('public','storage')"
+                  :src="interior.image"
                   aspect-ratio="1"
                   class="grey lighten-2"
+                  v-on:click="goDetail(interior.id)"
                 >
                   <template v-slot:aplaceholder>
                     <v-row class="fill-height ma-0" align="center" justify="center">
@@ -59,6 +61,9 @@ export default {
         this.interiors = [];
         console.log(e);
       }
+    },
+    goDetail(interiorId) {
+      location.href = `/detail/${interiorId}`;
     },
     // setOnlyFavorite(value) {
     //   this.searchConditions.onlyFavorite = value;

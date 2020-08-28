@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Interior;
 use App\User;
+use App\Http\Controllers\Storage;
 use Illuminate\Support\Facades\Auth;
 use Encore\Admin\Facades\Admin;
 
@@ -49,6 +50,21 @@ class ApiController extends Controller
         //$image_name = $request->image->getClientOriginalName();
         $result = $request->user()->interiors()->create([
             'image' => $request->image->store('public'),
+            'tag' => $request->tag,
+            'style' => $request->style,
+            'category' => $request->category,
+            'detail' => $request->detail,
+            'description' => $request->description,
+        ]);
+        return response()->json($result);
+    }
+
+    public function create(Request $request)
+    {
+        $disk = \Storage::disk('s3');
+        $fileName = $disk->put('', $request->image);
+        $result = $request->user()->interiors()->create([
+            'image' => $disk->url($fileName),
             'tag' => $request->tag,
             'style' => $request->style,
             'category' => $request->category,
