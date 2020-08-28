@@ -46,7 +46,8 @@ Route::prefix('api')->group(function () {
     //Route::get('/interiors/{interior}', 'ApiController@show');
     Route::get('/interiors/{user}', 'ApiController@mine');
     Route::get('/interiors/mine', 'ApiController@mine');
-    Route::post('/interiors', 'ApiController@store');
+    //Route::post('/interiors', 'ApiController@store');
+    Route::post('/interiors', 'ApiController@create');
     Route::post('/interiors/{interior}', 'ApiController@update');
     Route::delete('/interiors/{interior}', 'ApiController@destroy');
     //Route::patch('/interiors/{interior}/fin', 'ApiController@changeFinish');

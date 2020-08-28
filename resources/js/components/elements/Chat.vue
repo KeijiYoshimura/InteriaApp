@@ -58,34 +58,121 @@
           <v-col>
             <!-- <v-row>
             <v-col cols="12" sm="8" offset-sm="2">-->
-            <v-card v-for="message in yetMessages" v-bind:key="message.id">
+            <v-col v-for="message in yetMessages" v-bind:key="message.id">
               <!-- <v-list-item>
                 <v-list-item-icon>
                   <v-icon>mdi-account</v-icon>
                 </v-list-item-icon>
                 <v-list-item-text large>{{message.user.name}}</v-list-item-text>
               </v-list-item>-->
-              <v-card-actions class="py-0">
+              <!-- <v-card> -->
+              <v-row>
+                <v-col cols="12" md="3" class="pr-0">
+                  <!-- <v-card>
+                  <v-card-actions>-->
+                  <v-responsive>
+                    <v-list-item>
+                      <v-list-item-icon class="mr-1">
+                        <v-icon>mdi-account</v-icon>
+                      </v-list-item-icon>
+                      <v-list-item-content>
+                        <v-list-item-title>{{ message.user.name }}</v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+                  </v-responsive>
+                </v-col>
+                <v-col cols="12" md="6" class="pl-0">
+                  <v-responsive>
+                    <v-list-item>
+                      <v-list-item-icon class="mr-1">
+                        <v-icon>mdi-message</v-icon>
+                      </v-list-item-icon>
+                      <v-list-item-content>
+                        <v-list-item-title>{{ message.body }}</v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+                  </v-responsive>
+                </v-col>
+                <v-col cols="12" md="3">
+                  <v-responsive>
+                    <v-list-item>
+                      <div v-on:click="toggleRead(message)">
+                        <v-list-item-icon v-if="message.is_read">
+                          <v-icon color="primary">mdi-eye-outline</v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-icon v-else>
+                          <v-icon>mdi-eye-off-outline</v-icon>
+                        </v-list-item-icon>
+                      </div>
+                      <div v-if="checkUser(message.user_id)">
+                        <v-list-item-icon text v-on:click="deleteMessage(message.id)">
+                          <v-icon color="red">mdi-delete</v-icon>
+                        </v-list-item-icon>
+                      </div>
+                      <div v-else>
+                        <v-list-item-icon>
+                          <v-icon>mdi-delete</v-icon>
+                        </v-list-item-icon>
+                      </div>
+                    </v-list-item>
+                    <!-- <v-card-actions>
+                      <div v-on:click="toggleRead(message)">
+                        <div v-if="message.is_read">
+                          <v-icon color="primary">mdi-eye-outline</v-icon>
+                        </div>
+                        <div v-else>
+                          <v-icon>mdi-eye-off-outline</v-icon>
+                        </div>
+                      </div>
+                    </v-card-actions>
+                    <v-card-actions class="py-0">
+                      <div v-if="checkUser(message.user_id)">
+                        <div text v-on:click="deleteMessage(message.id)">
+                          <v-icon color="red">mdi-delete</v-icon>
+                        </div>
+                      </div>
+                      <div v-else>
+                        <v-icon>mdi-delete</v-icon>
+                      </div>
+                    </v-card-actions>-->
+                  </v-responsive>
+                </v-col>
+              </v-row>
+
+              <!-- <v-card-actions>
+                <div>
+                  <v-icon>mdi-account</v-icon>
+                </div>
                 <v-card-title>{{message.user.name}}</v-card-title>
+                <v-card-subtitle>{{message.created_at | moment}}</v-card-subtitle>
                 <v-spacer></v-spacer>
-                <div v-on:click="toggleRead(message)">
-                  <div v-if="message.is_read">
-                    <v-icon color="primary" large>mdi-eye-settings-outline</v-icon>
+                <v-card-actions>
+                  <div v-on:click="toggleRead(message)">
+                    <div v-if="message.is_read">
+                      <v-icon color="primary">mdi-eye-outline</v-icon>
+                    </div>
+                    <div v-else>
+                      <v-icon>mdi-eye-off-outline</v-icon>
+                    </div>
+                  </div>
+                </v-card-actions>
+                <v-card-actions class="py-0">
+                  <div v-if="checkUser(message.user_id)">
+                    <div text v-on:click="deleteMessage(message.id)">
+                      <v-icon color="red">mdi-delete</v-icon>
+                    </div>
                   </div>
                   <div v-else>
-                    <v-icon large>mdi-eye-settings-outline</v-icon>
+                    <v-icon>mdi-delete</v-icon>
                   </div>
-                </div>
-                <v-spacer></v-spacer>
-                <div v-if="checkUser(message.user_id)">
-                  <div text v-on:click="deleteMessage(message.id)">
-                    <v-icon color="red" large>mdi-delete</v-icon>
-                  </div>
-                </div>
-                <div v-else>
-                  <v-icon large>mdi-delete</v-icon>
-                </div>
+                </v-card-actions>
               </v-card-actions>
+              <v-card-actions>
+                <v-card-text>{{message.body}}</v-card-text>
+                <v-spacer></v-spacer>
+                <v-card-text>{{message.created_at | moment}}</v-card-text>
+              </v-card-actions>-->
+
               <!-- <v-list-item>
                 <v-list-item-icon>
                 <div v-if="checkUser(message.user_id)">
@@ -103,12 +190,12 @@
                   </div>
                 </div>
               </v-list-item>-->
-              <v-list-item>
+              <!-- <v-list-item>
                 <v-list-item-text>{{message.created_at | moment}}</v-list-item-text>
-              </v-list-item>
-              <v-list-item>
+              </v-list-item>-->
+              <!-- <v-list-item>
                 <v-list-item-text class="pt-0">{{message.body}}</v-list-item-text>
-              </v-list-item>
+              </v-list-item>-->
               <!-- <v-card-actions class="py-0">
                 <v-btn v-on:click="toggleRead(message)">
                   <template v-if="message.is_read">
@@ -129,7 +216,7 @@
                   </template>
                 </v-list-item-icon>
               </v-list-item>-->
-            </v-card>
+            </v-col>
           </v-col>
         </v-row>
         <!-- </v-col>

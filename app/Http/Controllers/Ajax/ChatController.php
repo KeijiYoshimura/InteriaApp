@@ -29,7 +29,12 @@ class ChatController extends Controller
             'body' => $request->body,
             'is_read' => $request->is_read,
         ]);
-        event(new MessageCreated($message));
+
+        try {
+            event(new MessageCreated($message));
+        } catch (Exception $e) {
+            print($e);
+        };
     }
 
     public function destroy(Request $request, Message $message)
@@ -55,7 +60,9 @@ class ChatController extends Controller
 
         event(new MessageCreated($message));
 
-        $result = $message->delete();
+        $message = $message->delete();
+
+        return $message;
 
         //return $message;
 

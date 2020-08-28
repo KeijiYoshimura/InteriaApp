@@ -78,7 +78,7 @@ export default {
           SelectStyle: null,
           SelectCategory: null,
           detail: "",
-          // tag: "",
+          tag: "",
           description: "",
         };
       },
