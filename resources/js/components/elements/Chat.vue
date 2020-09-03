@@ -24,19 +24,29 @@
           <v-col>
             <v-col v-for="message in messages" v-bind:key="message.id" cols="12" class="mt-0">
               <v-row>
-                <v-col cols="3">
+                <v-col cols="4">
                   <v-responsive>
                     <v-list-item>
-                      <v-list-item-icon class="mr-1">
-                        <v-icon>mdi-account</v-icon>
-                      </v-list-item-icon>
+                      <div v-if="interior.user_id === message.user_id">
+                        <v-list-item-icon class="mr-1">
+                          <v-icon color="primary">mdi-account</v-icon>
+                        </v-list-item-icon>
+                      </div>
+                      <div v-else>
+                        <v-list-item-icon class="mr-1">
+                          <v-icon>mdi-account</v-icon>
+                        </v-list-item-icon>
+                      </div>
                       <v-list-item-content>
                         <v-list-item-title>{{ message.user.name }}</v-list-item-title>
                       </v-list-item-content>
+                      <v-list-item-icon text v-on:click="goDetail(message.user_id)">
+                        <v-icon color="green darken-2">mdi-arrow-right-circle</v-icon>
+                      </v-list-item-icon>
                     </v-list-item>
                   </v-responsive>
                 </v-col>
-                <v-col cols="6" class="pl-15">
+                <v-col cols="5">
                   <v-responsive>
                     <v-list-item>
                       <v-list-item-icon class="mr-1">
@@ -117,6 +127,22 @@ export default {
       user: {},
     };
   },
+  mounted() {
+    this.loadAuthUser();
+    this.checkUser();
+    this.getMessages();
+    console.log(this.interior);
+
+    Echo.channel("chat").listen("MessageCreated", (e) => {
+      console.log("success!");
+      this.getMessages();
+      if (this.isUnWatch === true) {
+        this.isUnWatch = !this.isUnWatch;
+      } else {
+        console.log("stay");
+      }
+    });
+  },
   methods: {
     async loadAuthUser() {
       try {
@@ -170,22 +196,12 @@ export default {
         console.log("show all");
       }
     },
-  },
-  mounted() {
-    this.loadAuthUser();
-    this.checkUser();
-    this.getMessages();
-    console.log(this.interior);
-
-    Echo.channel("chat").listen("MessageCreated", (e) => {
-      console.log("success!");
-      this.getMessages();
-      if (this.isUnWatch === true) {
-        this.isUnWatch = !this.isUnWatch;
-      } else {
-        console.log("stay");
-      }
-    });
+    goDetail(userId) {
+      location.href = `/show/${userId}`;
+    },
+    onScroll(e) {
+      this.offsetTop = e.target.scrollTop;
+    },
   },
   filters: {
     moment: function (date) {

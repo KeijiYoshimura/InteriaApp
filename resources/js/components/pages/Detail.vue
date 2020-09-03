@@ -9,7 +9,7 @@
                 <v-col>
                   <v-card>
                     <v-img
-                      :src="interior.image | replace('public','/storage')"
+                      :src="interior.image"
                       :aspect-ratio="4/3"
                     />
                     <v-responsive>
