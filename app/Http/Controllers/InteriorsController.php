@@ -32,11 +32,6 @@ class InteriorsController extends Controller
         return view('interior/myInterior');
     }
 
-    public function template()
-    {
-        return view('interior/template');
-    }
-
     public function detail($id)
     {
         $user = Auth::user();
@@ -44,8 +39,6 @@ class InteriorsController extends Controller
         return view('interior/detail', [
             'data' => [
                 'interior' => Interior::with('user')->find($id),
-                'interior2' => Interior::/*find($id)->*/with('user')->get(),
-                'user' => Auth::user(),
             ]
         ]);
     }

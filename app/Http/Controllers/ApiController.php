@@ -29,13 +29,11 @@ class ApiController extends Controller
 
     public function each(User $user)
     {
-        //$user = \Auth::user();
         return $user->interiors()->orderBy('created_at', 'desc')->get();
     }
 
     public function user(User $user)
     {
-        // $interior = Interior::find($id);
         return $user;
     }
 
@@ -47,7 +45,6 @@ class ApiController extends Controller
 
     public function store(Request $request)
     {
-        //$image_name = $request->image->getClientOriginalName();
         $result = $request->user()->interiors()->create([
             'image' => $request->image->store('public'),
             'tag' => $request->tag,

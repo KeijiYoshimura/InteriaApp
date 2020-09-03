@@ -24,9 +24,6 @@ export default {
   },
   methods: {
     onSubmit(data) {
-      // for (let value of data.entries()) {
-      //   console.log(value);
-      // }
       axios
         .post("/api/interiors", data)
         .then((response) => {

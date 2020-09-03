@@ -15,10 +15,8 @@ class ChatController extends Controller
 {
     public function index(Request $request, Interior $interior)
     {
-        // $interior = Interior::find($request->interior_id);
         $messages = $interior->messages();
         return $messages->with('user')->orderBy('id', 'desc')->get();
-        //return \App\Message::with('user')->orderBy('id', 'desc')->get();
     }
 
     public function create(Request $request)
@@ -39,17 +37,6 @@ class ChatController extends Controller
 
     public function destroy(Request $request, Message $message)
     {
-        //$messages = Message::all();
-
-        //$message = ['message_id' => $request->message_id];
-
-        //$message = $request->message_id;
-
-        // $message = $user->messages()->create([
-        //     'message_id' => $request->message_id,
-        //     'body' => $request->body
-        // ]);
-
         if (\Auth::id() == $message->user_id) {
             event(new MessageCreated($message));
 
@@ -57,19 +44,6 @@ class ChatController extends Controller
         } else {
             return "failed!!";
         }
-
-        event(new MessageCreated($message));
-
-        $message = $message->delete();
-
-        return $message;
-
-        //return $message;
-
-        // $message->delete();
-        // $message = Message::where('id', $request->id)->delete();
-        // $messages = Message::all();
-        // return $messages;
     }
 
     public function changeRead(Message $message)

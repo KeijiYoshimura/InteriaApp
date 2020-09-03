@@ -19,4 +19,9 @@ class Interior extends Model
     {
         return $this->hasMany(Message::class);
     }
+
+    public function isfavorites()
+    {
+        return $this->belongsToMany(User::class, 'favorites', 'interior_id', 'user_id')->withTimestamps();
+    }
 }
