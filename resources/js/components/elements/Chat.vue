@@ -125,7 +125,6 @@ export default {
       isUnWatch: false,
       messages: [],
       user: {},
-      // class="pl-15"
     };
   },
   mounted() {
