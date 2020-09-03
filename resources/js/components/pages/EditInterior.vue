@@ -5,19 +5,12 @@
 </template>
 <script>
 import InteriorForm from "../elements/InteriorForm";
-import { updateInterior } from "../../lib/api-service";
-//import { component } from "vue/types/umd";
 
 export default {
   name: "EditInterior",
   components: { InteriorForm },
   methods: {
     onSubmit(data) {
-      // updateInterior(this.interiorId, data)
-      //   .then(() => {
-      //     location.href = "/";
-      //   })
-      //   .catch((err) => console.log(err));
       console.log(data.image);
       axios
         .post("/api/interiors/" + this.interiorId , data)

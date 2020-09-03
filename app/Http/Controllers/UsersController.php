@@ -10,11 +10,7 @@ class UsersController extends Controller
 {
     public function users()
     {
-        return view('users/users'/*, [
-            'data' => [
-                'users' => User::all()->get(),
-            ]
-            ]*/);
+        return view('users/users');
     }
 
     public function show($id)
@@ -24,40 +20,58 @@ class UsersController extends Controller
         } else {
             return view('users/show', [
                 'data' => [
-                    'user' => User::with('interiors')->find($id),
+                    'user' => User::with('interiors')->orderBy('created_at', 'desc')->find($id),
                 ]
             ]);
         }
     }
 
-    public function followUser()
+    public function followInteriors()
     {
         $user = \Auth::user();
-        $interiors = $user->feed_interiors()->with('user')->orderBy('created_at', 'desc')->paginate(12);
-        //$users = \Auth::user()->followings;
-        return view('users/followUser', [
+        $interiors = $user->feed_follow_interiors()->with('user')->orderBy('created_at', 'desc')->paginate(12);
+        return view('users/followInteriors', [
             'data' => [
-                //'users' => $users,
-                //'users2' => User::with('interior'),
-                //'users3' => User::with('interior')->get(),
                 'interiors' => $interiors,
-                //'interiors2' => Interior::with('user')->get(),
-                //'interiors' => $interiors,
-
             ]
         ]);
     }
 
-    public function check($id)
-    {
-        $checked = \Auth::user()->is_following($id);
 
-        if ($checked > 0) {
-            return true;
-        } else {
-            return false;
-        }
-        //return \Auth::user()->is_following($id);
+    public function favoriteInteriors()
+    {
+        $user = \Auth::user();
+        $interiors = $user->favorites()->with('user')->orderBy('created_at', 'desc')->paginate(12);
+        return view('users/favoriteInteriors', [
+            'data' => [
+                'interiors' => $interiors,
+            ]
+        ]);
+    }
+
+    public function watchMessages($id)
+    {
+        $user = \Auth::user();
+        $messages = $user->watches()->where('interior_id', $id)->with('user')->orderBy('created_at', 'asc')->paginate(100);
+        return $messages;
+    }
+
+    public function checkFollow($id)
+    {
+        $checkedFollow = \Auth::user()->is_following($id);
+        return $checkedFollow;
+    }
+
+    public function checkFavo($id)
+    {
+        $checkedFavo = \Auth::user()->is_favorite($id);
+        return $checkedFavo;
+    }
+
+    public function checkWatch($id)
+    {
+        $checkedWatch = \Auth::user()->is_watch($id);
+        return $checkedWatch;
     }
 
     public function followings($id)

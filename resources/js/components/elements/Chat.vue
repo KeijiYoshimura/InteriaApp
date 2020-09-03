@@ -1,75 +1,30 @@
 <template>
   <v-app>
-    <v-card height="634px">
-      <v-card-actions>
-        <v-card-title>Chat Field</v-card-title>
+    <v-card height="670px">
+      <v-toolbar dark>
+        <v-toolbar-title>Chat Form</v-toolbar-title>
         <v-spacer></v-spacer>
-        <ListChange v-bind:yetRead="searchConditions.yetRead" v-on:changeYetRead="setYetRead" />
-        <v-card-title class="pl-0">UnChecked</v-card-title>
-        <v-spacer></v-spacer>
-        <v-btn color="primary" text v-on:click="sendMessage()">
-          <v-icon large dark right>mdi-arrow-up-circle</v-icon>
+        <v-btn color="black" text v-on:click="changeShow(interior.id)">
+          <template v-if="this.isUnWatch">
+            <v-icon color="orange darken-2" large>mdi-eye-outline</v-icon>
+          </template>
+          <template v-else>
+            <v-icon color="white" large>mdi-eye-off-outline</v-icon>
+          </template>
         </v-btn>
-      </v-card-actions>
-      <v-card-text class="py-0">
-        <v-text-field
-          class="pa-0"
-          v-model="body"
-          label="Post Message"
-          outlined
-          clearable
-          name="input-7-4"
-        ></v-text-field>
+        <v-btn color="black" text v-on:click="sendMessage()">
+          <v-icon large color="primary">mdi-arrow-up-circle</v-icon>
+        </v-btn>
+      </v-toolbar>
+      <v-card-text class="pt-10 pb-0 pl-10 pr-16">
+        <v-text-field class="pa-0" v-model="body" label="Post Message" clearable name="input-7-4"></v-text-field>
       </v-card-text>
-      <!-- <v-row>
-          <v-col>
-            <v-card v-for="message in messages" v-bind:key="message.id">
-              <v-card-title>{{message.user.name}}</v-card-title>
-              <v-card-text>{{message.created_at | moment}}</v-card-text>
-              <v-card-text>{{message.body}}</v-card-text>
-            </v-card>
-            <v-text-field
-              v-model="message"
-              label="Post Message"
-              outlined
-              clearable
-              name="input-7-4"
-            ></v-text-field>
-            <v-btn v-on:click="send" text outlined>POST</v-btn>
-      </v-col>-->
-      <!-- <v-col>
-            <v-textarea
-              v-model="message"
-              label="Post Message"
-              outlined
-              clearable
-              rows="3"
-              name="input-7-4"
-            ></v-textarea>
-            <v-btn v-on:click="send" text outlined>POST</v-btn>
-      </v-col>-->
-      <!-- </v-row> -->
-      <!-- <v-row justify="center" align="center">
-        <v-subheader>Chat Field</v-subheader>
-        {{ offsetTop }}
-      </v-row>-->
-      <v-container id="scroll-target" style="height: 440px" class="overflow-y-auto">
+      <v-container id="scroll-target" style="height: 520px" class="overflow-y-auto">
         <v-row v-scroll:#scroll-target="onScroll" style="height: 800px">
           <v-col>
-            <!-- <v-row>
-            <v-col cols="12" sm="8" offset-sm="2">-->
-            <v-col v-for="message in yetMessages" v-bind:key="message.id">
-              <!-- <v-list-item>
-                <v-list-item-icon>
-                  <v-icon>mdi-account</v-icon>
-                </v-list-item-icon>
-                <v-list-item-text large>{{message.user.name}}</v-list-item-text>
-              </v-list-item>-->
-              <!-- <v-card> -->
+            <v-col v-for="message in messages" v-bind:key="message.id" cols="12" class="mt-0">
               <v-row>
-                <v-col cols="12" md="3" class="pr-0">
-                  <!-- <v-card>
-                  <v-card-actions>-->
+                <v-col cols="3">
                   <v-responsive>
                     <v-list-item>
                       <v-list-item-icon class="mr-1">
@@ -81,29 +36,22 @@
                     </v-list-item>
                   </v-responsive>
                 </v-col>
-                <v-col cols="12" md="6" class="pl-0">
+                <v-col cols="6" class="pl-15">
                   <v-responsive>
                     <v-list-item>
                       <v-list-item-icon class="mr-1">
-                        <v-icon>mdi-message</v-icon>
+                        <v-icon>mdi-clock</v-icon>
                       </v-list-item-icon>
                       <v-list-item-content>
-                        <v-list-item-title>{{ message.body }}</v-list-item-title>
+                        <v-list-item-title>{{ message.created_at | moment }}</v-list-item-title>
                       </v-list-item-content>
                     </v-list-item>
                   </v-responsive>
                 </v-col>
-                <v-col cols="12" md="3">
+                <v-col cols="3">
                   <v-responsive>
                     <v-list-item>
-                      <div v-on:click="toggleRead(message)">
-                        <v-list-item-icon v-if="message.is_read">
-                          <v-icon color="primary">mdi-eye-outline</v-icon>
-                        </v-list-item-icon>
-                        <v-list-item-icon v-else>
-                          <v-icon>mdi-eye-off-outline</v-icon>
-                        </v-list-item-icon>
-                      </div>
+                      <WatchButton v-bind:message="message" />
                       <div v-if="checkUser(message.user_id)">
                         <v-list-item-icon text v-on:click="deleteMessage(message.id)">
                           <v-icon color="red">mdi-delete</v-icon>
@@ -115,112 +63,24 @@
                         </v-list-item-icon>
                       </div>
                     </v-list-item>
-                    <!-- <v-card-actions>
-                      <div v-on:click="toggleRead(message)">
-                        <div v-if="message.is_read">
-                          <v-icon color="primary">mdi-eye-outline</v-icon>
-                        </div>
-                        <div v-else>
-                          <v-icon>mdi-eye-off-outline</v-icon>
-                        </div>
-                      </div>
-                    </v-card-actions>
-                    <v-card-actions class="py-0">
-                      <div v-if="checkUser(message.user_id)">
-                        <div text v-on:click="deleteMessage(message.id)">
-                          <v-icon color="red">mdi-delete</v-icon>
-                        </div>
-                      </div>
-                      <div v-else>
-                        <v-icon>mdi-delete</v-icon>
-                      </div>
-                    </v-card-actions>-->
+                  </v-responsive>
+                </v-col>
+                <v-col cols="12" class="pt-0">
+                  <v-responsive>
+                    <v-list-item>
+                      <v-list-item-icon class="mr-1">
+                        <v-icon>mdi-message</v-icon>
+                      </v-list-item-icon>
+                      <v-list-item-content>
+                        <v-list-item-title>{{ message.body }}</v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
                   </v-responsive>
                 </v-col>
               </v-row>
-
-              <!-- <v-card-actions>
-                <div>
-                  <v-icon>mdi-account</v-icon>
-                </div>
-                <v-card-title>{{message.user.name}}</v-card-title>
-                <v-card-subtitle>{{message.created_at | moment}}</v-card-subtitle>
-                <v-spacer></v-spacer>
-                <v-card-actions>
-                  <div v-on:click="toggleRead(message)">
-                    <div v-if="message.is_read">
-                      <v-icon color="primary">mdi-eye-outline</v-icon>
-                    </div>
-                    <div v-else>
-                      <v-icon>mdi-eye-off-outline</v-icon>
-                    </div>
-                  </div>
-                </v-card-actions>
-                <v-card-actions class="py-0">
-                  <div v-if="checkUser(message.user_id)">
-                    <div text v-on:click="deleteMessage(message.id)">
-                      <v-icon color="red">mdi-delete</v-icon>
-                    </div>
-                  </div>
-                  <div v-else>
-                    <v-icon>mdi-delete</v-icon>
-                  </div>
-                </v-card-actions>
-              </v-card-actions>
-              <v-card-actions>
-                <v-card-text>{{message.body}}</v-card-text>
-                <v-spacer></v-spacer>
-                <v-card-text>{{message.created_at | moment}}</v-card-text>
-              </v-card-actions>-->
-
-              <!-- <v-list-item>
-                <v-list-item-icon>
-                <div v-if="checkUser(message.user_id)">
-                  <div text v-on:click="deleteMessage(message.id)">
-                    <v-icon color="red" large>mdi-delete</v-icon>
-                  </div>
-                </div>
-                </v-list-item-icon>
-                <div v-on:click="toggleRead(message)">
-                  <div v-if="message.is_read">
-                    <v-icon color="primary" large>mdi-eye-settings-outline</v-icon>
-                  </div>
-                  <div v-else>
-                    <v-icon large>mdi-eye-settings-outline</v-icon>
-                  </div>
-                </div>
-              </v-list-item>-->
-              <!-- <v-list-item>
-                <v-list-item-text>{{message.created_at | moment}}</v-list-item-text>
-              </v-list-item>-->
-              <!-- <v-list-item>
-                <v-list-item-text class="pt-0">{{message.body}}</v-list-item-text>
-              </v-list-item>-->
-              <!-- <v-card-actions class="py-0">
-                <v-btn v-on:click="toggleRead(message)">
-                  <template v-if="message.is_read">
-                    <v-icon color="primary">mdi-eye-settings-outline</v-icon>
-                  </template>
-                  <template v-else>
-                    <v-icon>mdi-eye-settings-outline</v-icon>
-                  </template>
-                </v-btn>
-              </v-card-actions>-->
-              <!-- <v-list-item>
-                <v-list-item-icon v-on:click="toggleRead(message)">
-                  <template v-if="message.is_read">
-                    <v-icon color="primary" large>mdi-eye-settings-outline</v-icon>
-                  </template>
-                  <template v-else>
-                    <v-icon large>mdi-eye-settings-outline</v-icon>
-                  </template>
-                </v-list-item-icon>
-              </v-list-item>-->
             </v-col>
           </v-col>
         </v-row>
-        <!-- </v-col>
-        </v-row>-->
       </v-container>
     </v-card>
   </v-app>
@@ -228,7 +88,12 @@
 <script>
 import moment from "moment";
 import ListChange from "../elements/ListChange";
-import { getAuthUser, changeRead } from "../../lib/api-service";
+import WatchButton from "../elements/WatchButton";
+import {
+  getAuthUser,
+  changeRead,
+  getWatchMessages,
+} from "../../lib/api-service";
 
 export default {
   name: "Chat",
@@ -247,10 +112,9 @@ export default {
       searchConditions: {
         yetRead: false,
       },
+      isUnWatch: false,
       messages: [],
       user: {},
-      // isUser: false,
-      //offsetTop: 0,
     };
   },
   methods: {
@@ -270,7 +134,13 @@ export default {
       const url = "/ajax/chat/" + this.interior_id;
       axios.get(url).then((response) => {
         this.messages = response.data;
-        console.log(response.data[0].user_id);
+      });
+    },
+    getWatchMessages(interiorId) {
+      const url = "/users/" + interiorId + "/watchMessages";
+      axios.get(url).then((response) => {
+        console.log(response.data);
+        this.messages = response.data.data;
       });
     },
     sendMessage() {
@@ -284,79 +154,38 @@ export default {
         this.body = "";
       });
     },
-    // ondelete(messageId) {
-    //   this.$emit("delete", messageId);
-    // },
     deleteMessage(messageId) {
-      //console.log(messageId);
       const idx = this.messages.findIndex((m) => m.id === messageId);
       const url = "/ajax/chat/" + messageId;
-      //console.log(url);
-      // const params = {
-      //   message_id: messageId,
-      //   body: this.body,
-      // };
-      axios.delete(url).then((response) => {
-        //this.message = this.messages.splice(idx, 1);
-        console.log(response);
-        //this.messages = response.data;
-      });
+      axios.delete(url).then((response) => {});
     },
-    toggleRead(message) {
-      const url = "/ajax/chat/" + message.id + "/read";
-      axios.patch(url).then((response) => {
-        console.log(response);
-        console.log(message.is_read);
-        message.is_read = !message.is_read;
-        console.log(message.is_read);
-      });
-    },
-    // async toggleRead(message) {
-    //   console.log(message);
-    //   message.is_read = !message.is_read;
-    //   try {
-    //     await changeRead(message.id);
-    //   } catch (e) {
-    //     console.log(e);
-    //     message.is_read = !message.is_read;
-    //   }
-    // },
-    setYetRead(yetRead) {
-      //console.log(yetRead);
-      console.log(this.searchConditions.yetRead);
-      this.searchConditions.yetRead = yetRead;
-      console.log(this.searchConditions.yetRead);
-    },
-    onScroll(e) {
-      this.offsetTop = e.target.scrollTop;
+    changeShow(interiorId) {
+      if (this.isUnWatch === false) {
+        this.isUnWatch = !this.isUnWatch;
+        console.log("show UnWatch");
+        this.getWatchMessages(interiorId);
+      } else {
+        this.isUnWatch = !this.isUnWatch;
+        this.messages = this.getMessages();
+        console.log("show all");
+      }
     },
   },
   mounted() {
     this.loadAuthUser();
-    //console.log(this.user);
-
     this.checkUser();
-
     this.getMessages();
+    console.log(this.interior);
 
     Echo.channel("chat").listen("MessageCreated", (e) => {
       console.log("success!");
       this.getMessages();
+      if (this.isUnWatch === true) {
+        this.isUnWatch = !this.isUnWatch;
+      } else {
+        console.log("stay");
+      }
     });
-    // Echo.channel("chat").listen("MessageDeleted", (e) => {
-    //   console.log("bbb");
-    //   this.getMessages();
-    // });
-  },
-  computed: {
-    yetMessages: function () {
-      return this.messages.filter(
-        (m) => !m.is_read || !this.searchConditions.yetRead
-      );
-      // .sort(function (a, b) {
-      //   return a.time > b.time ? 1 : -1;
-      // });
-    },
   },
   filters: {
     moment: function (date) {

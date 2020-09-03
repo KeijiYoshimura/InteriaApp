@@ -7,6 +7,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use App\User;
+use App\Interior;
 
 class Controller extends BaseController
 {
@@ -24,5 +25,11 @@ class Controller extends BaseController
             'count_followings' => $count_followings,
             'count_followers' => $count_followers,
         ];
+    }
+
+    public function countsFavo(Interior $interior)
+    {
+        $count_favorites = $interior->isfavorites()->count();
+        return $count_favorites;
     }
 }

@@ -1,66 +1,79 @@
 <template>
   <v-app>
-    <v-container>
-      <v-row>
-        <v-col cols="12" md="7">
-          <v-card>
-            <v-img :src="imageData" v-if="imageData" :aspect-ratio="4/3" height="580px" />
-          </v-card>
-        </v-col>
-        <v-col cols="12" md="5">
-          <v-card height="580px">
-            <v-file-input
-              v-model="image"
-              label="Select File"
-              v-on:change="fileSelected"
-              outlined
-              name="image"
-            ></v-file-input>
-            <v-combobox
-              v-model="SelectStyle"
-              :items="styles"
-              v-init:SelectStyle="interior.style"
-              label="Select Style"
-              outlined
-              clearable
-            ></v-combobox>
-            <v-combobox
-              v-model="SelectCategory"
-              :items="categories"
-              v-init:SelectCategory="interior.category"
-              label="Select Category"
-              outlined
-              clearable
-            ></v-combobox>
-            <v-text-field
-              v-model="detail"
-              v-init:detail="interior.detail"
-              label="Detail"
-              outlined
-              clearable
-            ></v-text-field>
-            <v-textarea
-              v-model="description"
-              v-init:description="interior.description"
-              label="Description"
-              outlined
-              clearable
-              rows="5"
-              name="input-7-4"
-            ></v-textarea>
-            <v-card-actions class="pt-0">
-              <v-btn color="red" text v-on:click="deleteInterior(interior.id)">
-                <v-icon x-large dark right>mdi-delete</v-icon>
-              </v-btn>
-              <v-spacer></v-spacer>
-              <v-btn color="primary" text v-on:click="onSubmit">
-                <v-icon x-large dark right>mdi-arrow-up-circle</v-icon>
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-col>
-      </v-row>
-    </v-container>
+    <v-row>
+      <v-col cols="12" sm="10" offset-sm="1" class="pt-10">
+        <v-container fluid>
+          <v-row>
+            <v-col cols="12" md="7">
+              <v-row>
+                <v-col>
+                  <v-card>
+                    <v-img :src="imageData" v-if="imageData" :aspect-ratio="4/3" height="580px" />
+                  </v-card>
+                </v-col>
+              </v-row>
+            </v-col>
+            <v-col cols="12" md="5">
+              <v-row>
+                <v-col>
+                  <v-card height="580px">
+                    <v-toolbar dark dense>
+                      <v-toolbar-title>Post Form</v-toolbar-title>
+                      <v-spacer></v-spacer>
+                      <v-btn icon color="black" text v-on:click="onSubmit">
+                        <v-icon color="primary">mdi-arrow-up-circle</v-icon>
+                      </v-btn>
+                      <v-btn icon color="black" text v-on:click="clear">
+                        <v-icon color="red">mdi-delete</v-icon>
+                      </v-btn>
+                    </v-toolbar>
+                    <v-file-input
+                      v-model="image"
+                      label="Select File"
+                      v-on:change="fileSelected"
+                      name="image"
+                      class="px-10 mt-5"
+                    ></v-file-input>
+                    <v-combobox
+                      v-model="SelectStyle"
+                      :items="styles"
+                      v-init:SelectStyle="interior.style"
+                      label="Select Style"
+                      clearable
+                      class="px-10 mt-5"
+                    ></v-combobox>
+                    <v-combobox
+                      v-model="SelectCategory"
+                      :items="categories"
+                      v-init:SelectCategory="interior.category"
+                      label="Select Category"
+                      clearable
+                      class="px-10 mt-5"
+                    ></v-combobox>
+                    <v-text-field
+                      v-model="detail"
+                      v-init:detail="interior.detail"
+                      label="Detail"
+                      clearable
+                      class="px-10 mt-5"
+                    ></v-text-field>
+                    <v-textarea
+                      v-model="description"
+                      v-init:description="interior.description"
+                      label="Description"
+                      clearable
+                      rows="5"
+                      class="px-10 mt-5"
+                    ></v-textarea>
+                  </v-card>
+                </v-col>
+              </v-row>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-col>
+    </v-row>
+    <v-container></v-container>
   </v-app>
 </template>
 <script>
@@ -137,7 +150,13 @@ export default {
     onSubmit() {
       let data = new FormData();
       this.tag =
-        this.SelectStyle + "/" + this.SelectCategory + "/" + this.detail + "/" + this.description;
+        this.SelectStyle +
+        "/" +
+        this.SelectCategory +
+        "/" +
+        this.detail +
+        "/" +
+        this.description;
       console.log(this.tag);
       data.append("image", this.image);
       data.append("style", this.SelectStyle);
@@ -145,26 +164,6 @@ export default {
       data.append("detail", this.detail);
       data.append("tag", this.tag);
       data.append("description", this.description);
-
-      // postInterior(data)
-      //   .then(() => {
-      //     location.href = "/";
-      //   })
-      //   .catch((err) => console.log(err));
-
-      // axios
-      //   .post("/api/interiors", data)
-      //   .then((response) => {
-      //     location.href = "/";
-      //   })
-      //   .catch((err) => console.log(err));
-
-      // const interior = {
-      //   category: this.category,
-      //   style: this.style,
-      //   detail: this.detail,
-      //   description: this.description,
-      // };
       this.$emit("submit", data);
     },
     clear() {

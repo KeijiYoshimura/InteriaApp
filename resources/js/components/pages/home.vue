@@ -4,27 +4,30 @@
       <v-col cols="12" sm="10" offset-sm="1">
         <v-container fluid>
           <v-row>
-            <v-col
-              v-for="interior in interiors"
-              v-bind:key="interior.id"
-              class="d-flex child-flex"
-              cols="3"
-            >
-              <v-card flat tile class="d-flex">
-                <!-- <v-card-text>{{interior.image}}</v-card-text> -->
-                <v-img
-                  :src="interior.image"
-                  aspect-ratio="1"
-                  class="grey lighten-2"
-                  v-on:click="goDetail(interior.id)"
+            <v-col>
+              <v-row>
+                <v-col
+                  v-for="interior in interiors"
+                  v-bind:key="interior.id"
+                  class="d-flex child-flex"
+                  cols="4"
                 >
-                  <template v-slot:aplaceholder>
-                    <v-row class="fill-height ma-0" align="center" justify="center">
-                      <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
-                    </v-row>
-                  </template>
-                </v-img>
-              </v-card>
+                  <v-card flat tile class="d-flex">
+                    <v-img
+                      :src="interior.image"
+                      :aspect-ratio="4/3"
+                      class="grey lighten-2"
+                      v-on:click="goDetail(interior.id)"
+                    >
+                      <template v-slot:aplaceholder>
+                        <v-row class="fill-height ma-0" align="center" justify="center">
+                          <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
+                        </v-row>
+                      </template>
+                    </v-img>
+                  </v-card>
+                </v-col>
+              </v-row>
             </v-col>
           </v-row>
         </v-container>
@@ -33,19 +36,13 @@
   </v-app>
 </template>
 <script>
-import Interior from "../elements/Interior";
-import InteriorSearchForm from "../elements/InteriorSearchForm";
 import { getInteriors } from "../../lib/api-service";
 
 export default {
   name: "Top",
-  components: { Interior, InteriorSearchForm },
+  components: {},
   data: function () {
     return {
-      // searchConditions: {
-      //   keyword: "",
-      //   onlyFavorite: false,
-      // },
       interiors: [],
     };
   },
@@ -65,34 +62,11 @@ export default {
     goDetail(interiorId) {
       location.href = `/detail/${interiorId}`;
     },
-    // setOnlyFavorite(value) {
-    //   this.searchConditions.onlyFavorite = value;
-    // },
-    // setKeyword(value) {
-    //   this.searchConditions.keyword = value;
-    // },
-    // goDetail(interiorId) {
-    //   location.href = `/detail/${interiorId}`;
-    // },
-    // goEdit(interior) {
-    //   location.href = `/edit/${interior.id}`;
-    // },
   },
   filters: {
     replace: function (str) {
       return str.replace("public", "storage");
     },
-  },
-  computed: {
-    // filteredInteriors() {
-    //   const keyword = this.searchConditions.keyword;
-    //   //const onlyFavorite = this.searchConditions.onlyFavorite;
-    //   return (
-    //     this.interiors
-    //       //.filter((b) => !onlyFavorite || b.is_favorite === true)
-    //       .filter((i) => i.tag.includes(keyword))
-    //   );
-    // },
   },
 };
 </script>
@@ -100,6 +74,7 @@ export default {
 .py-4 {
   background-color: #eeeeee;
   height: 100vh;
+  padding-top: 0px;
 }
 
 #app {

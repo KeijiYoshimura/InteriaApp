@@ -7,20 +7,44 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+.navbar{
+    padding: 0em;
+}
+
 .bg-white {
     background-color: #708090 !important;
 }
 
 .navbar-light .navbar-brand {
     color: #eeeeee;
-    font-size: 2.5em;
+    font-size: 3.5em;
     font-family: "Montserrat Subrayada" , sans-serif;
-}
-
-.navbar-light .navbar-nav .navbar-link{
-    color: #eeeeee
 }
 
 .navbar-light .navbar-nav .nav-link {
     color: #eeeeee;
+    font-size: large;
+}
+
+.py-4{
+    padding-top: 0rem !important;
+}
+
+body{
+    font-family: 'Alegreya Sans SC', sans-serif;
+}
+
+.card-header{
+    background-color: #708090;
+    color :#eeeeee;
+}
+
+.container{
+    padding-top: 30px;
+}
+
+.col-md-4 {
+    flex: 0 0 33.3333333333%;
+    max-width: 33.3333333333%;
+    font-size: 1.5em;
 }

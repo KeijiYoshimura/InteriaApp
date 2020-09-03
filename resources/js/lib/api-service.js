@@ -40,6 +40,11 @@ export const getMessages = async function (messageId) {
     return response.json();
 };
 
+export const getWatchMessages = async function (interiorId) {
+    const response = await fetch(`users/${interiorId}/watchMessages`);
+    return response.json();
+};
+
 export const postInterior = async function (data) {
     const response = await fetch(`${apiBase}/interiors`, {
         method: "POST",
@@ -47,19 +52,6 @@ export const postInterior = async function (data) {
         headers: {
             "Content-Type": "multipart/form-data",
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-    return response.json();
-};
-
-export const updateInterior = async function (interiorId, data) {
-    const response = await fetch(`${apiBase}/interiors/${interiorId}`, {
-        method: "PUT",
-        body: JSON.stringify(data),
-        headers: {
-            "Content-Type": "multipart/form-data",
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-
         }
     });
     return response.json();
