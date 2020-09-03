@@ -10945,19 +10945,18 @@ a.text-dark:focus {
 .navbar-light .navbar-nav .nav-link {
   color: #eeeeee;
   font-size: large;
+  font-family: "Alegreya Sans SC", sans-serif;
 }
 
 .py-4 {
   padding-top: 0rem !important;
 }
 
-body {
-  font-family: "Alegreya Sans SC", sans-serif;
-}
-
 .card-header {
   background-color: #708090;
   color: #eeeeee;
+  font-family: "Alegreya Sans SC", sans-serif;
+  font-size: large;
 }
 
 .container {
@@ -10968,5 +10967,22 @@ body {
   flex: 0 0 33.3333333333%;
   max-width: 33.3333333333%;
   font-size: 1.5em;
+  font-family: "Alegreya Sans SC", sans-serif;
+}
+
+.btn-primary {
+  color: #eeeeee;
+  background-color: #3490dc;
+  border-color: #3490dc;
+  font-family: "Alegreya Sans SC", sans-serif;
+}
+
+.form-check-label {
+  font-family: "Alegreya Sans SC", sans-serif;
+}
+
+.btn:not(:disabled):not(.disabled) {
+  cursor: pointer;
+  font-family: "Alegreya Sans SC", sans-serif;
 }
 
